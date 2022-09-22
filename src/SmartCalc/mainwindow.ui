@@ -1,0 +1,678 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1280</width>
+    <height>572</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>878</width>
+    <height>572</height>
+   </size>
+  </property>
+  <property name="font">
+   <font>
+    <family>Fira Code</family>
+    <pointsize>12</pointsize>
+    <weight>75</weight>
+    <bold>true</bold>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>SmartCalc</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QWidget" name="gridLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>180</y>
+      <width>641</width>
+      <height>341</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="buttons">
+     <property name="leftMargin">
+      <number>8</number>
+     </property>
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <property name="rightMargin">
+      <number>8</number>
+     </property>
+     <property name="horizontalSpacing">
+      <number>16</number>
+     </property>
+     <item row="1" column="1">
+      <widget class="QPushButton" name="sqrt">
+       <property name="text">
+        <string>√(x)</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="3">
+      <widget class="QPushButton" name="digit_2">
+       <property name="text">
+        <string>2</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QPushButton" name="sin">
+       <property name="text">
+        <string>sin(x)</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="4">
+      <widget class="QPushButton" name="mod">
+       <property name="text">
+        <string>mod</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QPushButton" name="pow">
+       <property name="text">
+        <string>x^y</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="4">
+      <widget class="QPushButton" name="dot">
+       <property name="text">
+        <string>.</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="3">
+      <widget class="QPushButton" name="digit_8">
+       <property name="text">
+        <string>8</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="2">
+      <widget class="QPushButton" name="digit_7">
+       <property name="text">
+        <string>7</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0">
+      <widget class="QPushButton" name="acos">
+       <property name="text">
+        <string>acos(x)</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QPushButton" name="tan">
+       <property name="text">
+        <string>tan(x)</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="4">
+      <widget class="QPushButton" name="digit_6">
+       <property name="text">
+        <string>6</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="5">
+      <widget class="QPushButton" name="plus">
+       <property name="text">
+        <string>+</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QPushButton" name="power_of_10">
+       <property name="text">
+        <string>10^x</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="2">
+      <widget class="QPushButton" name="digit_4">
+       <property name="text">
+        <string>4</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="3">
+      <widget class="QPushButton" name="rigth_bracket">
+       <property name="text">
+        <string>)</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QPushButton" name="cos">
+       <property name="text">
+        <string>cos(x)</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="0">
+      <widget class="QPushButton" name="atan">
+       <property name="text">
+        <string>atan(x)</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="5">
+      <widget class="QPushButton" name="multiply">
+       <property name="text">
+        <string>×</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="5">
+      <widget class="QPushButton" name="equal">
+       <property name="text">
+        <string>=</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QPushButton" name="log10">
+       <property name="text">
+        <string>log10(x)</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="3">
+      <widget class="QPushButton" name="digit_0">
+       <property name="text">
+        <string>0</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="4">
+      <widget class="QPushButton" name="digit_3">
+       <property name="text">
+        <string>3</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="5">
+      <widget class="QPushButton" name="minus">
+       <property name="text">
+        <string>-</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="2">
+      <widget class="QPushButton" name="digit_1">
+       <property name="text">
+        <string>1</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="QPushButton" name="left_bracket">
+       <property name="text">
+        <string>(</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QPushButton" name="asin">
+       <property name="text">
+        <string>asin(x)</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="4">
+      <widget class="QPushButton" name="digit_9">
+       <property name="text">
+        <string>9</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1">
+      <widget class="QPushButton" name="ln">
+       <property name="text">
+        <string>ln(x)</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="5">
+      <widget class="QPushButton" name="div">
+       <property name="text">
+        <string>÷</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="3">
+      <widget class="QPushButton" name="digit_5">
+       <property name="text">
+        <string>5</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="4">
+      <widget class="QPushButton" name="erase">
+       <property name="text">
+        <string>&lt;-</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="5">
+      <widget class="QPushButton" name="clear">
+       <property name="text">
+        <string>A/C</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="2">
+      <widget class="QPushButton" name="x_button">
+       <property name="text">
+        <string>x</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QTextEdit" name="input_output">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>641</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <property name="cursor" stdset="0">
+     <cursorShape>IBeamCursor</cursorShape>
+    </property>
+    <property name="tabChangesFocus">
+     <bool>true</bool>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+    <property name="placeholderText">
+     <string>0</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="horizontalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>110</y>
+      <width>641</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="x_buttons">
+     <property name="spacing">
+      <number>16</number>
+     </property>
+     <property name="leftMargin">
+      <number>8</number>
+     </property>
+     <property name="rightMargin">
+      <number>8</number>
+     </property>
+     <item>
+      <widget class="QLineEdit" name="x_value">
+       <property name="placeholderText">
+        <string>Input x here</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="x_clear">
+       <property name="text">
+        <string>Clear x</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="plot">
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Plot</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="toggle_history">
+       <property name="text">
+        <string>History</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QTextEdit" name="history">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>660</x>
+      <y>90</y>
+      <width>211</width>
+      <height>411</height>
+     </rect>
+    </property>
+    <property name="cursor" stdset="0">
+     <cursorShape>IBeamCursor</cursorShape>
+    </property>
+    <property name="acceptDrops">
+     <bool>false</bool>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+    <property name="placeholderText">
+     <string>...</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="history_label">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>660</x>
+      <y>20</y>
+      <width>211</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>History</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="horizontalLayoutWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>660</x>
+      <y>50</y>
+      <width>211</width>
+      <height>39</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <property name="spacing">
+      <number>16</number>
+     </property>
+     <property name="leftMargin">
+      <number>8</number>
+     </property>
+     <property name="rightMargin">
+      <number>8</number>
+     </property>
+     <item>
+      <widget class="QPushButton" name="clear_history">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="text">
+        <string>Clear</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="gridLayoutWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>150</y>
+      <width>641</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="error_messages">
+     <property name="horizontalSpacing">
+      <number>40</number>
+     </property>
+     <item row="0" column="0">
+      <widget class="QLabel" name="x_error_msg">
+       <property name="styleSheet">
+        <string notr="true">color: red</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLabel" name="calc_error_msg">
+       <property name="styleSheet">
+        <string notr="true">color: red</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QCustomPlot" name="plot_graph" native="true">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>660</x>
+      <y>60</y>
+      <width>611</width>
+      <height>441</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QWidget" name="horizontalLayoutWidget_3">
+    <property name="geometry">
+     <rect>
+      <x>960</x>
+      <y>21</y>
+      <width>311</width>
+      <height>39</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="plot_buttons">
+     <property name="spacing">
+      <number>16</number>
+     </property>
+     <property name="leftMargin">
+      <number>8</number>
+     </property>
+     <property name="rightMargin">
+      <number>8</number>
+     </property>
+     <item>
+      <widget class="QPushButton" name="center">
+       <property name="text">
+        <string>Center</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="clear_plots">
+       <property name="text">
+        <string>Clear plots</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QLabel" name="current_plot">
+    <property name="geometry">
+     <rect>
+      <x>660</x>
+      <y>25</y>
+      <width>291</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>800</x>
+      <y>500</y>
+      <width>341</width>
+      <height>75</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="ranges">
+     <property name="spacing">
+      <number>0</number>
+     </property>
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <item>
+      <layout class="QHBoxLayout" name="ranges_with_labels">
+       <property name="topMargin">
+        <number>10</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="x_range_label">
+         <property name="text">
+          <string>x ∈</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="x_range">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="focusPolicy">
+          <enum>Qt::ClickFocus</enum>
+         </property>
+         <property name="placeholderText">
+          <string>-25 25</string>
+         </property>
+         <property name="clearButtonEnabled">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="y_range_label">
+         <property name="text">
+          <string>y ∈</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="y_range">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="placeholderText">
+          <string/>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="is_ranges_valid">
+       <item>
+        <widget class="QLabel" name="is_x_range_valid">
+         <property name="styleSheet">
+          <string notr="true">color: red</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="is_y_range_valid">
+         <property name="styleSheet">
+          <string notr="true">color: red</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1280</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuMode">
+    <property name="title">
+     <string>Mode</string>
+    </property>
+    <addaction name="actionCredit"/>
+    <addaction name="actionDeposit"/>
+   </widget>
+   <addaction name="menuMode"/>
+  </widget>
+  <action name="actionCredit">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Credit</string>
+   </property>
+  </action>
+  <action name="actionDeposit">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Deposit</string>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QCustomPlot</class>
+   <extends>QWidget</extends>
+   <header>qcustomplot.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
