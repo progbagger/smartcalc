@@ -172,7 +172,7 @@ char *infix_to_postfix(const char *str) {
   char *normalized_str = simplify(str);
   const char ops[] = "^+-*m/";
   const char funcs[] = "_=(CSTcstqlL";
-  const char operands[] = "0123456789.x";
+  const char operands[] = "0123456789.xy";
   Stack *s = init_stack();
   size_t i = 0;
   if (normalized_str) {
@@ -218,7 +218,7 @@ void skip_double(const char *str, size_t *pos) {
  * @return Stack* Pointer to stack where were pushed element
  */
 Stack *calc_operand(Stack *s, const char *str, size_t *i, double x) {
-  if (str[*i] == 'x') {
+  if (str[*i] == 'x' || str[*i] == 'y') {
     push_stack(s, (void *)&x, sizeof(double));
   } else {
     double number;
@@ -320,7 +320,7 @@ char *calc_postfix(const char *str, double x) {
   char *result = NULL;
   if (str) {
     double double_result = NAN;
-    const char operands[] = "0123456789x";
+    const char operands[] = "0123456789xy";
     const char operators[] = "-+*/m^";
     const char funcs[] = "_=sincostanasinacosatansqrtmodlnlog";
     size_t i = 0;
