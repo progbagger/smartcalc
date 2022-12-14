@@ -154,8 +154,12 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
     equal = 16777220,
     del = 16777223
   };
-
-  QString available_symbols = "xXm()1234567890./*-+^=";
+  QString available_symbols;
+  if (ui->x_button->text() == "x")
+    available_symbols = "xX";
+  else
+    available_symbols = "yY";
+  available_symbols += "m()1234567890./*-+^=";
   QString available_functions = "sctSCTqlL";
   QVector<QString> functions = {
       "sin()",  "cos()",  "tan()", "asin()", "acos()",
@@ -181,6 +185,8 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
     } else {
       if (event->text() == "X")
         push_without_brackets(*ui->input_output, "x");
+      else if (event->text() == "Y")
+        push_without_brackets(*ui->input_output, "y");
       else
         push_without_brackets(*ui->input_output, event->text());
     }
@@ -329,21 +335,34 @@ void MainWindow::create_graph(const char *expression, QString &name) {
   auto ranges = get_ranges();
   double x_min = ranges[0].first, x_max = ranges[0].second;
   double y_min = ranges[1].first, y_max = ranges[1].second;
+  qDebug() << "GOTCHA!";
 
   // Creating x and y table
   int plot_size = 10001;  // always 1 at the end so it can be translated on
                           // even amount of dots
   QVector<double> x(plot_size), y(plot_size);
   for (int i = 0; i < plot_size; i++) {
-    x[i] = x_min + (x_max - x_min) / (plot_size - 1) * i;
-    char *calculated_expr = calc_postfix(expression, x[i]);
-    QString calculated_expr_str(calculated_expr);
-    if (calculated_expr_str.contains("nan")) {
-      y[i] = NAN;
+    if (ui->x_button->text() == "x") {
+      x[i] = x_min + (x_max - x_min) / (plot_size - 1) * i;
+      char *calculated_expr = calc_postfix(expression, x[i]);
+      QString calculated_expr_str(calculated_expr);
+      if (calculated_expr_str.contains("nan")) {
+        y[i] = NAN;
+      } else {
+        y[i] = calculated_expr_str.toDouble();
+      }
+      delete calculated_expr;
     } else {
-      y[i] = calculated_expr_str.toDouble();
+      y[i] = y_min + (y_max - y_min) / (plot_size - 1) * i;
+      char *calculated_expr = calc_postfix(expression, y[i]);
+      QString calculated_expr_str(calculated_expr);
+      if (calculated_expr_str.contains("nan")) {
+        x[i] = NAN;
+      } else {
+        x[i] = calculated_expr_str.toDouble();
+      }
+      delete calculated_expr;
     }
-    delete calculated_expr;
   }
 
   // Drawing plot
@@ -375,21 +394,21 @@ void MainWindow::on_equal_clicked() {
     ui->x_error_msg->clear();
   } else {
     x = 0;  // default
-    ui->x_error_msg->setText("x value error");
+    ui->x_error_msg->setText("variable value error");
   }
   char *result = NULL;
 
   if (postfix) {
     result = calc_postfix(postfix, x);
     if (result) {
-      if (!expression.contains("x") ||
+      if (!expression.contains(ui->x_button->text()) ||
           (!x_value.isEmpty() && ui->x_error_msg->text().isEmpty())) {
         ui->input_output->clear();
         if (strcmp(result, "0")) ui->input_output->append(result);
         if (!x_value.isEmpty() && ui->x_error_msg->text().isEmpty() &&
-            expression.contains("x"))
-          ui->history->append(expression + "(x=" + QString::number(x) + ")" +
-                              "=" + result);
+            expression.contains(ui->x_button->text()))
+          ui->history->append(expression + "(" + ui->x_button->text() + "=" +
+                              QString::number(x) + ")" + "=" + result);
         else
           ui->history->append(expression + "=" + result);
       } else {
@@ -494,7 +513,7 @@ void MainWindow::on_center_clicked() {
 }
 
 void MainWindow::on_x_button_clicked() {
-  ui->input_output->insertPlainText("x");
+  ui->input_output->insertPlainText(ui->x_button->text());
 }
 
 void MainWindow::on_x_range_textEdited() { ui->is_x_range_valid->clear(); }
@@ -542,3 +561,15 @@ void MainWindow::from_deposit_opened_credit() {
 }
 
 void MainWindow::on_x_clear_clicked() { ui->x_value->clear(); }
+
+void MainWindow::on_x_or_y_on_the_left_currentTextChanged(const QString &arg1) {
+  if (arg1 == "x") {
+    ui->x_button->setText("y");
+    ui->x_clear->setText("Clear y");
+    ui->x_value->setPlaceholderText("Input y here");
+  } else {
+    ui->x_button->setText("x");
+    ui->x_clear->setText("Clear x");
+    ui->x_value->setPlaceholderText("Input x here");
+  }
+}

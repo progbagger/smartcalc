@@ -92,7 +92,7 @@ char *simplify(const char *str) {
       for (size_t iter = 0; iter < funcs_count; iter++) {
         if (strestr(str_without_spaces + i, funcs_str[iter])) {
           if (str_without_spaces[i] != 'm' &&
-              (is_digit(prev_op) || prev_op == 'x'))
+              (is_digit(prev_op) || prev_op == 'x' || prev_op == 'y'))
             result = str_push(result, '*');
           result = str_push(result, funcs_sym[iter]);
           i += strlen(funcs_str[iter]) - 1;
@@ -104,7 +104,8 @@ char *simplify(const char *str) {
         // Unary operators handler
         if (strchr("-+", str_without_spaces[i]) &&
             (i == 0 || ((!is_digit(str_without_spaces[i - 1]) &&
-                         str_without_spaces[i - 1] != 'x') &&
+                         str_without_spaces[i - 1] != 'x' &&
+                         str_without_spaces[i - 1] != 'y') &&
                         str_without_spaces[i - 1] != ')'))) {
           if (str_without_spaces[i] == '-')
             result = str_push(result, '_');
@@ -115,7 +116,8 @@ char *simplify(const char *str) {
                     (str_without_spaces[i] == '.' &&
                      str_without_spaces[i + 1] != '.') ||
                     strchr(ops, str_without_spaces[i]) ||
-                    str_without_spaces[i] == 'x') &&
+                    str_without_spaces[i] == 'x' ||
+                    str_without_spaces[i] == 'y') &&
                    !(i != 0 && str_without_spaces[i] == '.' &&
                      !is_digit(str_without_spaces[i - 1])) &&
                    !(i == 0 && str_without_spaces[i] == '.') &&
@@ -125,9 +127,11 @@ char *simplify(const char *str) {
             brackets_count++;
           else if (str_without_spaces[i] == ')')
             brackets_count--;
-          if ((is_digit(prev_op) && str_without_spaces[i] == 'x') ||
-              (prev_op == 'x' && (is_digit(str_without_spaces[i]) ||
-                                  str_without_spaces[i] == 'x')))
+          if ((is_digit(prev_op) && (str_without_spaces[i] == 'x' ||
+                                     str_without_spaces[i] == 'y')) ||
+              (prev_op == 'x' &&
+               (is_digit(str_without_spaces[i]) ||
+                str_without_spaces[i] == 'x' || str_without_spaces[i] == 'y')))
             result = str_push(result, '*');
           result = str_push(result, str_without_spaces[i]);
         } else {  // Error handler
