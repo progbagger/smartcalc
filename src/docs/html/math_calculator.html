@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" href="../assets/icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
+  <script src="../js/to_the_top.js"></script>
+  <title>Math calculator</title>
+</head>
+
+<body>
+  <div class="shadow">
+    <!-- Навигация -->
+    <header>
+      <div class="nav-panel">
+        <div class="tab"><a href="index.html">Общее</a></div>
+        <div class="tab current-tab"><a class="disabled-href" href="math_calculator.html">Математический</a></div>
+        <div class="tab"><a href="credit_calculator.html">Кредитный</a></div>
+        <div class="tab"><a href="deposit_calculator.html">Депозитный</a></div>
+      </div>
+    </header>
+    <!-- Тело -->
+    <div class="wrapper">
+      <h1>Математический калькулятор</h1>
+      <h2>Оглавление</h2>
+      <ol>
+        <li><a href="#expression_calculating">Вычисление выражений</a>
+          <ul>
+            <li><a href="#lexems">Список поддерживаемых лексем</a></li>
+          </ul>
+        </li>
+        <li><a href="#history">История выражений</a></li>
+        <li><a href="#plots">Графики</a></li>
+        <li><a href="#additional">Дополнительные возможности</a></li>
+      </ol>
+      <hr>
+      <h2 id="expression_calculating">
+        1. Вычисление выражений
+      </h2>
+      <p>Данный режим поддерживает вычисление математических выражений с возможностью подстановки в выражение
+        переменной <strong>x</strong>. Поддерживается ввод чисел в <strong>экспоненциальной</strong> записи.</p>
+      <p>Каждая лексема имеет ряд свойств. Например, унарный оператор может быть
+        префиксным или постфиксным, бинарный оператор должен иметь приоритет и быть левоассоциативным или
+        правоассоциативным, скобки должны быть открывающими и закрывающими и объединяться в один тип, задаваемый
+        целочисленной беззнаковой переменной.</p>
+      <h3 id="lexems">Список поддерживаемых лексем:</h3>
+      <ul>
+        <li>Префиксные нарные операторы
+          <ul>
+            <li><span class="lexem">+</span> - унарный минус</li>
+            <li><span class="lexem">-</span> - унарный минус</li>
+          </ul>
+        </li>
+        <li>Постфиксные унарные операторы
+          <ul>
+            <li><span class="lexem">!</span> - факториал</li>
+          </ul>
+        </li>
+        <li>Левоассоциативные бинарные операторы
+          <ul>
+            <li><span class="lexem">+</span> - бинарный плюс</li>
+            <li><span class="lexem">-</span> - бинарный минус</li>
+            <li><span class="lexem">*</span> - умножение</li>
+            <li><span class="lexem">/, :</span> - вещественное деление</li>
+            <li><span class="lexem">div</span> - целочисленное деление</li>
+            <li><span class="lexem">%</span> - целочисленный остаток от деления</li>
+            <li><span class="lexem">fmod, mod</span> - вещественный остаток от деления</li>
+          </ul>
+        </li>
+        <li>Правоассоциативные бинарные операторы
+          <ul>
+            <li><span class="lexem">^, pow</span> - возведение в степень</li>
+          </ul>
+        </li>
+        <li>Одномерные функции
+          <ul>
+            <li><span class="lexem">sin</span> - синус угла в радианах</li>
+            <li><span class="lexem">cos</span> - косинус угла в радианах</li>
+            <li><span class="lexem">tan, tg</span> - тангенс угла в радианах</li>
+            <li><span class="lexem">ctg</span> - котангенс угла в радианах</li>
+            <li><span class="lexem">asin</span> - арксинус (радианы)</li>
+            <li><span class="lexem">acos</span> - арккосину (радианы)</li>
+            <li><span class="lexem">atan</span> - арктангенс (радианы)</li>
+            <li><span class="lexem">sqrt</span> - квадратный корень</li>
+            <li><span class="lexem">ln</span> - натуральный логарифм</li>
+            <li><span class="lexem">log</span> - десятичный логарифм</li>
+            <li><span class="lexem">exp</span> - возведение <strong>e</strong> (числа Эйлера) в степень</li>
+            <li><span class="lexem">abs, fabs</span> - абсолютное значение</li>
+            <li><span class="lexem">fact</span> - факториал</li>
+          </ul>
+        </li>
+        <li>Поддерживаемые скобки
+          <ul>
+            <li><span class="lexem">(, )</span> - обыкновенная группировка</li>
+            <li><span class="lexem">[, ]</span> - группировка с модулем (аналог ||)</li>
+          </ul>
+        </li>
+      </ul>
+      <h2 id="history">2. История выражений</h2>
+      <p>В правой части математического калькулятора присутствуют две вкладки, одна из которых -
+        <strong>History</strong>.
+      </p>
+      <p>Здесь в таблицу сохраняется любое посчитанное валидное выражение: результат, подставляемое значение
+        <strong>x</strong> и само выражение без пробелов.
+      </p>
+      <p>Двойной клик по любому полю таблицы истории вставляет содержимое поля в окно ввода или в поле ввода переменной,
+        а также копирует содержимое в буфер обмена.</p>
+      <p>При желании можно очистить историю, нажав соответствующую кнопку внизу окна.</p>
+      <h2 id="plots">3. Графики</h2>
+      <p>Следующая вкладка - <strong>Plots</strong> - окно построения графиков. Для вывода графиков предусмотрена
+        двумерная координатная плоскость с подписанными соответствующими осями и легендой. Графики в легение и на
+        плоскости можно выделять.</p>
+      <p>По умолчанию построение графиков отключено. Для включения необходимо нажать кнопку <strong>Create
+          plot</strong>. После нажатия на эту кнопку каждое посчитанное выражение автоматически будет строить новый
+        график и
+        заменять собой предыдущий график.</p>
+      <p>Следующая кнопка - <strong>Autoclear</strong> - включает/отключает автоматическое очищение предыдущего графика.
+        Отключив её, можно построить любое количество графиков, которые одновременно отобразятся на координатной
+        плоскости.</p>
+      <p>Для очистки области графиков нужно нажать кнопку <strong>Clear plots</strong>.</p>
+      <p>Любой график можно построить только для указанных областей определения и значений. Для этого ниже
+        вышеупомянутых кнопок расположены 4 поля ввода вещественных чисел:</p>
+      <ul>
+        <li>минимальное значение области определения</li>
+        <li>максимальное значение области определения</li>
+        <li>минимальное значение области значений</li>
+        <li>максимальное значение области значений</li>
+      </ul>
+      <p>Если вдруг минимальное значение любой оси превысит или будет равно максимальному - график построить не удастся
+        и под диапазоном появится соответствующее сообщение об ошибке.</p>
+      <p>Три следующие кнопки - <strong>Reset ranges, Center plot, Show legend</strong> - сбрасывают значения областей
+        определения и значений, центрируют граобласть графика по текущим диапазонам и показывают/скрывают легенду
+        соответственно.</p>
+      <p>При желании пользователь может указать цвет следующего графика, используя выпадающее меню справа выше области
+        графиков. Также цвет можно выбрать случайным образом, поставив галочку рядом со словом <strong>Random</strong>.
+      </p>
+      <h2 id="additional">4. Дополнительные возможности ввода выражения</h2>
+      <p>Под полем ввода значения переменной предусмотрены кнопки передвижения по выражению - на случай, если клавиатура
+        будет недоступна. Кнопки <strong>"&lt;&lt;"</strong> и <strong>"&gt;&gt;"</strong> перемещают в
+        <strong>начало</strong> и
+        <strong>конец</strong> выражения
+        соответственно, а кнопки <strong>"&lt;"</strong> и <strong>"&gt;"</strong> - на один символ
+        <strong>влево</strong> и <strong>вправо</strong> соответственно.
+      </p>
+    </div>
+  </div>
+  <button onclick="scrollToTheTop()" class="to-the-top"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+      fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      class="feather feather-arrow-up">
+      <line x1="12" y1="19" x2="12" y2="5"></line>
+      <polyline points="5 12 12 5 19 12"></polyline>
+    </svg></button>
+</body>
+
+</html>
