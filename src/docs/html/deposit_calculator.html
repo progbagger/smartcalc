@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" href="../assets/icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
+  <script src="../js/to_the_top.js"></script>
+  <title>Deposit calculator</title>
+</head>
+
+<body>
+  <div class="shadow">
+    <!-- Навигация -->
+    <header>
+      <div class="nav-panel">
+        <div class="tab"><a href="index.html">Общее</a></div>
+        <div class="tab"><a href="math_calculator.html">Математический</a></div>
+        <div class="tab"><a href="credit_calculator.html">Кредитный</a></div>
+        <div class="tab current-tab"><a class="disabled-href" href="deposit_calculator.html">Депозитный</a></div>
+      </div>
+    </header>
+    <!-- Тело -->
+    <div class="wrapper">
+      <h1>Депозитный калькулятор</h1>
+      <h2>Оглавление</h2>
+      <ol>
+        <li><a href="#params">Параметры вклада</a></li>
+        <li><a href="#output">Вывод</a></li>
+      </ol>
+      <hr>
+      <h2 id="params">1. Параметры вклада</h2>
+      <p>Данный калькулятор предоставляет возможность рассчитать прибыль с вкладов различного характера. Предусмотрены
+        следующие входные параметры:</p>
+      <ul>
+        <li><strong>начальная сумма</strong> вклада</li>
+        <li><strong>срок</strong> вклада в днях, месяцах или годах</li>
+        <li><strong>дата первого взноса</strong> - по умолчанию текущая</li>
+        <li><strong>процентная ставка</strong> - годовая или месячная</li>
+        <li><strong>капитализация процентов</strong> - добавлять ли прибыль к сумме вклада</li>
+        <li><strong>периодичность выплат</strong>
+          <ul>
+            <li>каждый день</li>
+            <li>каждую неделю</li>
+            <li>каждый месяц</li>
+            <li>каждый квартал</li>
+            <li>каждые половину года</li>
+            <li>каждый год</li>
+            <li>в конце срока</li>
+          </ul>
+        </li>
+        <li><strong>список частичных пополнений</strong></li>
+        <li><strong>список частичных снятий</strong></li>
+        <li><strong>минимальная сумма</strong> остатка - активируется в случае наличия частичных снятий</li>
+      </ul>
+      <p>Списки пополнений и снятий предусматривают переменное количество платежей и вводятся в формате <strong>дата
+          пополнения/снятия</strong> и <strong>сумма пополнения/снятия</strong>.</p>
+      <p>В процессе вычисление прибыли, если текущий остаток на вкладе меньше, чем сумма, которую нужно снять снятие
+        <strong>игнорируется</strong>.
+      </p>
+      <h2 id="output">2. Вывод</h2>
+      <p>Результат появляется в таблице снизу окна. Первая строка - "нулевой день" - прибыль не вычисляется, пополнение
+        равно сумме остатка. Последний ряд - итог - вычисляется сумма всей прибыли и остаток на конец срока. Остальные
+        ряды имеют вид:</p>
+      <ol>
+        <li><strong>дата</strong> изменения суммы вклада</li>
+        <li><strong>прибыль</strong> в этот день - ячейка пуста, если в этот день произошло частичное снятие/пополнение
+        </li>
+        <li><strong>пополнение вклада</strong></li>
+        <li><strong>оставшаяся сумма</strong> на счету вклада</li>
+      </ol>
+    </div>
+  </div>
+  <button onclick="scrollToTheTop()" class="to-the-top"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+      fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      class="feather feather-arrow-up">
+      <line x1="12" y1="19" x2="12" y2="5"></line>
+      <polyline points="5 12 12 5 19 12"></polyline>
+    </svg></button>
+</body>
+
+</html>

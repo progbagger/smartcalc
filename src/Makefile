@@ -1,162 +1,176 @@
-##########################################
-# Common C project variables and targets #
-##########################################
+# Compiler options
+CXX = g++
+CXX_FLAGS = -std=c++17 -g #-Wall -Werror -Wextra -Wshadow
 
-SHELL = bash
+# App name
+INITIAL_APP_NAME = view
+APP_NAME = SmartCalc
 
-CC = gcc -std=c11 -g
-CFLAGS = -Wall -Werror -Wextra
-LIBFLAGS = -lm
-LIBSTATIC = s21_postfix.a
+# Project directories
+DIR_MODEL = model
+DIR_CONTROLLER = controller
+DIR_VIEW = view
+DIR_ASSETS = assets
+DIR_DOCS = docs
+DIR_TESTS = tests
 
-CC += $(CFLAGS)
+DIRECTORIES = $(DIR_MODEL) $(DIR_CONTROLLER) $(DIR_VIEW) $(DIR_ASSETS) $(DIR_DOCS) $(DIR_TESTS)
 
-MAIN = main.c
-TMAIN = s21_tests.c
-CFILES = $(filter-out tests.c,$(wildcard *.c))
-OBJS = $(CFILES:.c=.o)
+# Add searching flags for compiler
+CXX_FLAGS += -I$(DIR_MODEL) -I$(DIR_CONTROLLER) -I$(DIR_VIEW)
 
-TFLAGS = -lcheck
+# Project files
+CXX_FILES_MODEL = $(wildcard $(DIR_MODEL)/*.cc $(DIR_MODEL)/*.cpp)
+CXX_FILES_CONTROLLER = $(wildcard $(DIR_CONTROLLER)/*.cc $(DIR_CONTROLLER)/*.cpp)
+CXX_FILES_VIEW = $(filter-out $(DIR_VIEW)/qcustomplot.cpp, $(wildcard $(DIR_VIEW)/*.cc $(DIR_VIEW)/*.cpp))
 
+H_FILES_MODEL = $(wildcard $(DIR_MODEL)/*.h)
+H_FILES_CONTROLLER = $(wildcard $(DIR_CONTROLLER)/*.h)
+H_FILES_VIEW = $(filter-out $(DIR_VIEW)/qcustomplot.h, $(wildcard $(DIR_VIEW)/*.h))
+
+CXX_FILES = $(CXX_FILES_MODEL) $(CXX_FILES_CONTROLLER)
+H_FILES = $(H_FILES_MODEL)
+
+OBJ_FILES = $(addprefix build/, $(addsuffix .o, $(basename $(notdir $(CXX_FILES)))))
+
+CXX_FILES_ALL = $(CXX_FILES_MODEL) $(CXX_FILES_CONTROLLER) $(CXX_FILES_VIEW)
+H_FILES_ALL = $(H_FILES_MODEL) $(H_FILES_CONTROLLER) $(H_FILES_VIEW)
+
+MAIN = main.cpp
+
+# Miscelaneous
+SHELL = /bin/bash
 OS = $(shell uname)
+
+# Tests variables
+TEST_FILES = $(wildcard $(DIR_TESTS)/*.cc)
+TEST_EXEC = build/tests.out
+TEST_FLAGS = -lgtest -lgtest_main
+
+# GCOV report variables
+GCOV_OBJ_FILES = $(addsuffix _gcov.o, $(basename $(OBJ_FILES)))
+GCOV_EXEC = $(addsuffix _gcov.out, $(basename $(TEST_EXEC)))
+GCOV_FLAGS = --coverage
+
+all: clang-format leak-check install
+
+#### Checks ####
+
+leak-check: build_test
+	@echo "Starting leak checking..."
 ifeq ($(OS), Linux)
-TFLAGS += -lm -lrt -lpthread -lsubunit
-endif
-
-EXEC = $(MAIN:.c=)
-TEXEC = $(TMAIN:.c=)
-
-all: tests gcov_report dvi install
-
-build: $(LIBSTATIC) clean_build
-	@$(CC) $(MAIN) $(LIBSTATIC) -o $(EXEC) $(LIBFLAGS)
-
-rebuild: clean build
-
-build_tests: $(LIBSTATIC)
-	@$(CC) $(TMAIN) $(LIBSTATIC) -o $(TEXEC) $(TFLAGS)
-
-style:
-	@cp ../materials/linters/CPPLINT.cfg .
-	@python3 ../materials/linters/cpplint.py --extensions=c *.c
-
-cppcheck:
-	@cppcheck --enable=all --suppress=missingIncludeSystem *.c
-
-leaks: build_tests
-ifeq ($(OS), Darwin)
-	@leaks --atExit -- ./$(TEXEC)
+	@valgrind --leak-check=full --show-leak-kinds=all -s -- ./$(TEST_EXEC)
 else
-	@valgrind --leak-check=full -s ./$(TEXEC)
+	@leaks --atExit -q -- ./$(TEST_EXEC)
 endif
+	@echo "Done leak-check target"
 
-tests: build_tests
-	@./$(TEXEC)
+clang-format:
+	@echo "Checking styles using clang-format utility..."
+	@clang-format --verbose --Werror -n --style=google $(MAIN) $(CXX_FILES_ALL) $(H_FILES_ALL)
+	@echo "Done clang-format target"
 
-test: tests
+#### Tests compilation ####
 
-$(OBJS):
-	@$(CC) -c $(CFILES) $(LIBFLAGS)
+create_build:
+	@echo -n "Creating build folder..."
+	@mkdir -p build
+	@echo " Done create_build target"
 
-$(LIBSTATIC): $(OBJS)
-	@ar -rcs $(LIBSTATIC) $(OBJS)
+build/%.o: model/%.cc
+	@$(CXX) $(CXX_FLAGS) -c $< -o $@
 
-################################
-# GCOV Report vars and targets #
-################################
+build_objects: $(OBJ_FILES)
+	@echo "Done build_objects target"
 
-GFLAGS = --coverage
-REPORT_FOLDER = gcov_report
+$(TEST_EXEC): create_build build_objects
+	@echo -n "Compiling executable..."
+	@$(CXX) $(CXX_FLAGS) $(TEST_FILES) $(OBJ_FILES) -o $(TEST_EXEC) $(TEST_FLAGS)
+	@echo " Executable compiled succesfully"
 
-GCOV_OBJS:
-	@$(CC) -c $(CFILES) $(LIBFLAGS) $(GFLAGS)
+build_test: $(TEST_EXEC)
 
-GCOV_STATIC_LIB: GCOV_OBJS
-	@ar -rcs $(LIBSTATIC:.a=_gcov.a) $(OBJS)
+tests: build_test
+	@echo "Running tests..."
+	@echo "----------------"
+	@./$(TEST_EXEC)
+	@echo "----------------"
+	@echo "Tests ended"
 
-gcov_report: clean GCOV_STATIC_LIB
-	@$(CC) $(TMAIN) $(LIBSTATIC:.a=_gcov.a) -o $(TEXEC) $(TFLAGS) $(GFLAGS)
-	@./$(TEXEC) > /dev/zero 2> /dev/zero
-	-@lcov -t "Coverage report" -o $(REPORT_FOLDER).info -c -d .
-	-@genhtml -o $(REPORT_FOLDER) $(REPORT_FOLDER).info
+#### App compilation ####
 
-###################
-# Building QT app #
-###################
+cmake-target:
+	@echo "Creating Makefile..."
+	@mkdir -p build
+	@cmake -B build
+	@echo "Done"
 
-QT_PROJECT_NAME = SmartCalc
-QT_PROJECT_FOLDER = ./$(QT_PROJECT_NAME)
-QT_PRO = $(QT_PROJECT_NAME).pro
-QT_MAKEFILE = $(QT_PROJECT_NAME)_Makefile
-QT_BUILD_FOLDER = Build
-QT_APP_FOLDER = App
-
-generate_make:
-	@qmake6 $(QT_PROJECT_FOLDER)/$(QT_PRO) -o ./$(QT_BUILD_FOLDER)/$(QT_MAKEFILE) 2> /dev/zero > /dev/zero
-	@rm -rf .qmake.stash
-
-install: generate_make
-	@echo "Building application..."
-	@cd ./$(QT_BUILD_FOLDER) && make -sf $(QT_MAKEFILE)
-	@echo "Application builded."
-	@echo -n "Moving application to folder \"$(QT_APP_FOLDER)\"..."
-	@mkdir ./$(QT_APP_FOLDER)
+install: cmake-target
+	@echo "Installing app..."
+	@cd build; make
+	@mkdir -p app
 ifeq ($(OS), Darwin)
-	@mv ./$(QT_BUILD_FOLDER)/$(QT_PROJECT_NAME).app/Contents/MacOS/SmartCalc ./$(QT_APP_FOLDER)/$(QT_PROJECT_NAME).app
+	@mv build/$(INITIAL_APP_NAME).app app/$(APP_NAME).app
 else
-	@mv ./$(QT_BUILD_FOLDER)/$(QT_PROJECT_NAME) ./$(QT_APP_FOLDER)/$(QT_PROJECT_NAME)
+	@mv build/$(INITIAL_APP_NAME) app/$(APP_NAME)
 endif
-	@echo " Done."
-	@echo -n "Deleting build folder..."
-	@rm -rf $(QT_BUILD_FOLDER)
-	@echo " Done."
-	@echo "Installation complete!"
+	@echo "Done. App now situated in the 'app' folder and called '$(APP_NAME)'."
+
+run: install
+	@echo "Running application..."
+ifeq ($(OS), Darwin)
+	@open app/$(APP_NAME).app
+else
+	@app/$(APP_NAME)
+endif
 
 uninstall:
-	@echo -n "Uninstalling application..."
-	@rm -rf $(QT_APP_FOLDER)
-	@echo " Done."
+	@echo -n "Uninstalling app..."
+	@rm -rf app
+	@echo " Done"
 
-DIST_FOLDER_NAME = SmartCalc-1.0
+#### GCOV report ####
 
-dist:
-	@echo -n "Creating \"$(DIST_FOLDER_NAME).tar.gz\"..."
-	@rm -rf $(DIST_FOLDER_NAME)
-	@mkdir ./$(DIST_FOLDER_NAME)
-	@cp *.c ./$(DIST_FOLDER_NAME)/
-	@cp *.h ./$(DIST_FOLDER_NAME)/
-	@cp Makefile ./$(DIST_FOLDER_NAME)/
-	@cp -r $(DVI_FOLDER) ./$(DIST_FOLDER_NAME)/
-	@cp -r SmartCalc ./$(DIST_FOLDER_NAME)/
-	@tar -cf $(DIST_FOLDER_NAME).tar.gz ./$(DIST_FOLDER_NAME)
-	@rm -rf $(DIST_FOLDER_NAME)
-	@echo " Done."
+build/%_gcov.o: model/%.cc
+	@$(CXX) $(CXX_FLAGS) -c $< -o $@ $(GCOV_FLAGS)
 
-DVI_NAME = documentation
-DVI_FOLDER = Docs
+$(GCOV_EXEC): create_build $(GCOV_OBJ_FILES)
+	@$(CXX) $(CXX_FLAGS) $(TEST_FILES) $(GCOV_OBJ_FILES) -o $(GCOV_EXEC) $(TEST_FLAGS) $(GCOV_FLAGS)
+
+gcov_report: $(GCOV_EXEC)
+	@echo "Creating GCOV report..."
+	@./$(GCOV_EXEC) > /dev/zero 2> /dev/zero
+	@rm -rf build/tests_gcov.out-*
+	@lcov --no-external -t "Coverage report" -o build/report.info -c -d . --exclude '$(DIR_TESTS)/*'
+	@genhtml -o report build/report.info
+	@echo "Done gcov_report target"
+
+open_report: gcov_report
+	@open report/index.html
+
+#### Other targets ####
 
 dvi:
 	@echo -n "Opening documentation..."
-ifeq ($(OS), Darwin)
-	@open ./$(DVI_FOLDER)/$(DVI_NAME).html &
-else
-	@xdg-open ./$(DVI_FOLDER)/$(DVI_NAME).html &
-endif
-	@echo " Done."
+	@open docs/html/index.html
+	@echo " Done"
 
-#################
-# Other targets #
-#################
+DIR_PROJECT = SmartCalc-2.0
+ARCHIVE_NAME = $(DIR_PROJECT).tar
+
+dist: clean
+	@echo -n 'Creating archive "$(ARCHIVE_NAME)"...'
+	@mkdir $(DIR_PROJECT)
+	@cp -r $(DIRECTORIES) CMakeLists.txt $(MAIN) Makefile $(DIR_PROJECT)/
+	@tar -zcf $(ARCHIVE_NAME) $(DIR_PROJECT)
+	@rm -rf $(DIR_PROJECT)
+	@echo " Done"
 
 clean:
-	@echo -n "Cleanup started..."
-	@rm -rf *.o *.a *.out
-	@rm -rf *.gcov *.gcda *.gcno *.info
-	@rm -rf *.gch
-	@rm -rf $(EXEC) $(CEXEC) $(TEXEC)
-	@rm -rf *.dSYM
-	@rm -rf $(QT_BUILD_FOLDER)
-	@rm -rf .qmake.stash
-	@rm -rf $(REPORT_FOLDER)
-	@rm -rf $(DIST_FOLDER_NAME) $(DIST_FOLDER_NAME).tar.gz
-	@echo " Done."
+	@echo -n Cleaning...
+	@rm -rf *.out */*.out *.a */*.a *.o */*.o *.gcda */*.gcda *.gcno */*.gcno *.dSYM */*.dSYM
+	@rm -rf build* ../build*
+	@rm -rf report report.info
+	@rm -rf CMakeLists.txt.user view/CMakeLists.txt.user
+	@rm -rf $(DIR_PROJECT) $(ARCHIVE_NAME)
+	@echo " Done"
