@@ -106,6 +106,8 @@ class MathCalculator : public QMainWindow {
 
   void on_x_input_editingFinished();
 
+  void on_pushButton_clicked();
+
  signals:
   void OpenCreditCalculator();
   void OpenDepositCalculator();

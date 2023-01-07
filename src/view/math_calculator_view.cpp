@@ -404,3 +404,7 @@ void s21::view::MathCalculator::on_random_color_checkbox_stateChanged(
 void s21::view::MathCalculator::on_x_input_editingFinished() {
   on_evaluate_clicked();
 }
+
+void s21::view::MathCalculator::on_pushButton_clicked() {
+  ui->expression->insert("^");
+}
