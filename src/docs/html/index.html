@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="../assets/icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <script href="../js/to_the_top.js"></script>
+  <title>SmartCalc</title>
+</head>
+
+<body>
+  <div class="shadow">
+    <!-- Навигационная панелька -->
+    <header>
+      <div class="nav-panel">
+        <div class="tab current-tab"><a class="disabled-href" href="index.html">Общее</a></div>
+        <div class="tab"><a href="math_calculator.html">Математический</a></div>
+        <div class="tab"><a href="credit_calculator.html">Кредитный</a></div>
+        <div class="tab"><a href="deposit_calculator.html">Депозитный</a></div>
+      </div>
+    </header>
+    <!-- Тело -->
+    <div class="wrapper">
+      <h1>SmartCalc 2.0</h1>
+      <hr>
+      <h2>Общее</h2>
+      <p>Калькулятор предусматривает три режима работы:</p>
+      <ul class="contents">
+        <li><a href="math_calculator.html">Математический и графический калькулятор</a></li>
+        <li><a href="credit_calculator.html">Кредитный калькулятор</a></li>
+        <li><a href="deposit_calculator.html">Депозитный калькулятор</a></li>
+      </ul>
+      <p>Для переключения между режимами предусмотрены соответствующие кнопки в меню. При включении другого режима
+        откроется новое окно, а предыдущее закроется.</p>
+      <p>Подробную документацию по каждому из режимов Вы сможете найти по <strong>ссылкам</strong> выше.</p>
+    </div>
+  </div>
+  <button onclick="scrollToTheTop()" class="to-the-top"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+      fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      class="feather feather-arrow-up">
+      <line x1="12" y1="19" x2="12" y2="5"></line>
+      <polyline points="5 12 12 5 19 12"></polyline>
+    </svg></button>
+</body>
+
+</html>

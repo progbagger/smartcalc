@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" href="../assets/icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
+  <script src="../js/to_the_top.js"></script>
+  <title>Credit calculator</title>
+</head>
+
+<body>
+  <div class="shadow">
+    <!-- Навигация -->
+    <header>
+      <div class="nav-panel">
+        <div class="tab"><a href="index.html">Общее</a></div>
+        <div class="tab"><a href="math_calculator.html">Математический</a></div>
+        <div class="tab current-tab"><a class="disabled-href" href="credit_calculator.html">Кредитный</a></div>
+        <div class="tab"><a href="deposit_calculator.html">Депозитный</a></div>
+      </div>
+    </header>
+    <!-- Тело -->
+    <div class="wrapper">
+      <h1>Кредитный калькулятор</h1>
+      <hr>
+      <p>Данный калькулятор предоставляет возможность рассчёта суммы ежемесячного платежа по следующим параметрам:</p>
+      <ul>
+        <li><strong>сумма</strong> кредита в рублях</li>
+        <li><strong>срок</strong> кредита в месяцах или годах</li>
+        <li><strong>процентная ставка</strong> кредита - месячная или годовая</li>
+        <li><strong>тип кредита</strong> - аннуитетный или дифференцированный</li>
+      </ul>
+      <p>Во всех случаях вывод будет в виде таблицы, где первая строка является "нулевым" месяцем (месячный платёж
+        отсутствует, долг равен сумме кредита), а последняя строка - итогом кредита (сколько заплатили всего).</p>
+      <p>Остальные строки показывают:</p>
+      <ol>
+        <li>ежемесячный платёж</li>
+        <li>сколько ушло в погашение долга</li>
+        <li>сколько ушло в погашение процентов</li>
+        <li>оставшуюся сумма долга</li>
+      </ol>
+    </div>
+  </div>
+  <button onclick="scrollToTheTop()" class="to-the-top"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+      fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      class="feather feather-arrow-up">
+      <line x1="12" y1="19" x2="12" y2="5"></line>
+      <polyline points="5 12 12 5 19 12"></polyline>
+    </svg></button>
+</body>
+
+</html>
