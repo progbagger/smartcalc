@@ -6,9 +6,9 @@
 
 int main(int argc, char *argv[]) {
   QApplication application(argc, argv);
-  s21::model::Model model;
-  s21::controller::Controller controller(&model);
-  s21::view::View view(&controller);
+  calculator::model::Model model;
+  calculator::controller::Controller controller(&model);
+  calculator::view::View view(&controller);
   view.Start();
   return application.exec();
 }

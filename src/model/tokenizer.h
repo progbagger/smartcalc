@@ -7,7 +7,7 @@
 
 #include "tokens.h"
 
-namespace s21 {
+namespace calculator {
 
 namespace model {
 
@@ -74,6 +74,6 @@ class Tokenizer {
 
 }  // namespace model
 
-}  // namespace s21
+}  // namespace calculator
 
 #endif  // MODEL_TOKENIZER_H_

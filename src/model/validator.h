@@ -3,7 +3,7 @@
 
 #include "tokenizer.h"
 
-namespace s21 {
+namespace calculator {
 
 namespace model {
 
@@ -43,6 +43,6 @@ class Validator {
 
 }  // namespace model
 
-}  // namespace s21
+}  // namespace calculator
 
 #endif  // MODEL_VALIDATOR_H_

@@ -10,17 +10,17 @@
 #include "tests_misc.h"
 
 using deposit_calculator_test_result_type =
-    std::vector<std::pair<s21::model::Date, std::array<long double, 3>>>;
+    std::vector<std::pair<calculator::model::Date, std::array<long double, 3>>>;
 
 using deposit_calculator_test_case_type =
-    std::pair<s21::model::DepositCalculator::Parameters,
+    std::pair<calculator::model::DepositCalculator::Parameters,
               deposit_calculator_test_result_type>;
 
 using deposit_calculator_test_case_storage_type =
     std::vector<deposit_calculator_test_case_type>;
 
 inline const std::string PaymentListToString(
-    const s21::model::DepositCalculator::payment_list& list);
+    const calculator::model::DepositCalculator::payment_list& list);
 
 inline const std::string ParamsMsg(
     const deposit_calculator_test_case_type& test_case);
@@ -29,11 +29,11 @@ inline const deposit_calculator_test_case_storage_type kAllTestCases{
     {// input
      {200'000.00,
       15,
-      s21::model::TermType::kDays,
-      s21::model::Date(1, 1, 2023),
+      calculator::model::TermType::kDays,
+      calculator::model::Date(1, 1, 2023),
       5.0,
-      s21::model::RateType::kPerAnnum,
-      s21::model::DepositCalculator::PeriodicityType::kDaily,
+      calculator::model::RateType::kPerAnnum,
+      calculator::model::DepositCalculator::PeriodicityType::kDaily,
       false,
       {},
       {},
@@ -60,11 +60,11 @@ inline const deposit_calculator_test_case_storage_type kAllTestCases{
     {// input
      {1'000'000.00,
       2,
-      s21::model::TermType::kMonths,
+      calculator::model::TermType::kMonths,
       {31, 1, 2000},
       9.75,
-      s21::model::RateType::kPerAnnum,
-      s21::model::DepositCalculator::PeriodicityType::kWeekly,
+      calculator::model::RateType::kPerAnnum,
+      calculator::model::DepositCalculator::PeriodicityType::kWeekly,
       false,
       {},
       {},
@@ -85,11 +85,11 @@ inline const deposit_calculator_test_case_storage_type kAllTestCases{
     {// input
      {4'000'000.00,
       25,
-      s21::model::TermType::kMonths,
+      calculator::model::TermType::kMonths,
       {28, 2, 2004},
       1.0,
-      s21::model::RateType::kPerMonth,
-      s21::model::DepositCalculator::PeriodicityType::kMonthly,
+      calculator::model::RateType::kPerMonth,
+      calculator::model::DepositCalculator::PeriodicityType::kMonthly,
       false,
       {},
       {},
@@ -126,11 +126,11 @@ inline const deposit_calculator_test_case_storage_type kAllTestCases{
     {// input
      {1'350'000.00,
       281,
-      s21::model::TermType::kDays,
+      calculator::model::TermType::kDays,
       {17, 11, 2077},
       24.98,
-      s21::model::RateType::kPerAnnum,
-      s21::model::DepositCalculator::PeriodicityType::kPerQuarter,
+      calculator::model::RateType::kPerAnnum,
+      calculator::model::DepositCalculator::PeriodicityType::kPerQuarter,
       true,
       {},
       {},
@@ -146,11 +146,11 @@ inline const deposit_calculator_test_case_storage_type kAllTestCases{
     {// input
      {1'935'000.00,
       10,
-      s21::model::TermType::kYears,
+      calculator::model::TermType::kYears,
       {20, 12, 2013},
       21.11,
-      s21::model::RateType::kPerAnnum,
-      s21::model::DepositCalculator::PeriodicityType::kPerHalfOfYear,
+      calculator::model::RateType::kPerAnnum,
+      calculator::model::DepositCalculator::PeriodicityType::kPerHalfOfYear,
       true,
       {},
       {},
@@ -182,11 +182,11 @@ inline const deposit_calculator_test_case_storage_type kAllTestCases{
     {// input
      {20'000'000.00,
       15,
-      s21::model::TermType::kYears,
+      calculator::model::TermType::kYears,
       {25, 9, 2001},
       4.66,
-      s21::model::RateType::kPerAnnum,
-      s21::model::DepositCalculator::PeriodicityType::kPerYear,
+      calculator::model::RateType::kPerAnnum,
+      calculator::model::DepositCalculator::PeriodicityType::kPerYear,
       true,
       {},
       {},
@@ -213,11 +213,11 @@ inline const deposit_calculator_test_case_storage_type kAllTestCases{
     {// input
      {4'000'000.00,
       12,
-      s21::model::TermType::kMonths,
+      calculator::model::TermType::kMonths,
       {1, 1, 2022},
       10.5,
-      s21::model::RateType::kPerAnnum,
-      s21::model::DepositCalculator::PeriodicityType::kMonthly,
+      calculator::model::RateType::kPerAnnum,
+      calculator::model::DepositCalculator::PeriodicityType::kMonthly,
       true,
       {{{1, 1, 2017}, 500'000.00},
        {{1, 2, 2022}, 50'000.00},

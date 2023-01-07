@@ -4,7 +4,7 @@
 #include <initializer_list>
 #include <string>
 
-namespace s21 {
+namespace calculator {
 
 namespace model {
 
@@ -60,6 +60,6 @@ class Date {
 
 }  // namespace model
 
-}  // namespace s21
+}  // namespace calculator
 
 #endif  // MODEL_DATE_H_

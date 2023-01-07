@@ -3,7 +3,7 @@
 
 #include <vector>
 
-namespace s21 {
+namespace calculator {
 
 namespace model {
 
@@ -27,6 +27,6 @@ inline long double RateToPerAnnum(long double rate, RateType rate_type) {
 
 }  // namespace model
 
-}  // namespace s21
+}  // namespace calculator
 
 #endif  // MODEL_CREDIT_MISC_H_

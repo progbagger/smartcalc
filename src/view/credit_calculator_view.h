@@ -9,7 +9,7 @@ namespace Ui {
 class CreditCalculator;
 }
 
-namespace s21 {
+namespace calculator {
 
 namespace view {
 
@@ -44,6 +44,6 @@ class CreditCalculator : public QMainWindow {
 
 }  // namespace view
 
-}  // namespace s21
+}  // namespace calculator
 
 #endif  // VIEW_CREDIT_CALCULATOR_VIEW_H_

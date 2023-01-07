@@ -6,7 +6,7 @@
 #include "deposit_calculator_view.h"
 #include "math_calculator_view.h"
 
-namespace s21 {
+namespace calculator {
 
 namespace view {
 
@@ -60,6 +60,6 @@ class View {
 
 }  // namespace view
 
-}  // namespace s21
+}  // namespace calculator
 
 #endif  // VIEW_VIEW_H

@@ -1,15 +1,16 @@
 #include "date.h"
 
-s21::model::Date::Date() : day_(1), month_(1), year_(1), is_correct_(true) {}
+calculator::model::Date::Date()
+    : day_(1), month_(1), year_(1), is_correct_(true) {}
 
-s21::model::Date::Date(int day, int month, int year)
+calculator::model::Date::Date(int day, int month, int year)
     : day_(day), month_(month), year_(year) {
   ValidateDate();
 }
 
-s21::model::Date::Date(const Date& other) { *this = other; }
+calculator::model::Date::Date(const Date& other) { *this = other; }
 
-s21::model::Date& s21::model::Date::operator=(const Date& other) {
+calculator::model::Date& calculator::model::Date::operator=(const Date& other) {
   if (this != &other) {
     day_ = other.day_;
     month_ = other.month_;
@@ -20,11 +21,11 @@ s21::model::Date& s21::model::Date::operator=(const Date& other) {
   return *this;
 }
 
-s21::model::Date::Date(const std::initializer_list<int>& items) {
+calculator::model::Date::Date(const std::initializer_list<int>& items) {
   *this = items;
 }
 
-s21::model::Date& s21::model::Date::operator=(
+calculator::model::Date& calculator::model::Date::operator=(
     const std::initializer_list<int>& items) {
   if (items.size() < 3) {
     is_correct_ = false;
@@ -40,19 +41,19 @@ s21::model::Date& s21::model::Date::operator=(
   return *this;
 }
 
-int s21::model::Date::GetDay() const { return day_; }
+int calculator::model::Date::GetDay() const { return day_; }
 
-int s21::model::Date::GetMonth() const { return month_; }
+int calculator::model::Date::GetMonth() const { return month_; }
 
-int s21::model::Date::GetYear() const { return year_; }
+int calculator::model::Date::GetYear() const { return year_; }
 
-bool s21::model::Date::IsCorrect() const { return is_correct_; }
+bool calculator::model::Date::IsCorrect() const { return is_correct_; }
 
-bool s21::model::Date::IsYearLeap() const {
+bool calculator::model::Date::IsYearLeap() const {
   return (!(year_ % 4) && year_ % 100) || !(year_ % 400);
 }
 
-void s21::model::Date::IncreaseDay(int day) {
+void calculator::model::Date::IncreaseDay(int day) {
   day_ += day;
   while (day_ > GetMaxDay()) {
     day_ -= GetMaxDay();
@@ -60,35 +61,39 @@ void s21::model::Date::IncreaseDay(int day) {
   }
 }
 
-void s21::model::Date::IncreaseWeek(int weeks) { IncreaseDay(weeks * 7); }
+void calculator::model::Date::IncreaseWeek(int weeks) {
+  IncreaseDay(weeks * 7);
+}
 
-void s21::model::Date::IncreaseMonth(int month) {
+void calculator::model::Date::IncreaseMonth(int month) {
   month_ += month;
   int year_diff = (month_ - 1) / 12;
   month_ = (month_ - 1) % 12 + 1;
   IncreaseYear(year_diff);
 }
 
-void s21::model::Date::IncreaseQuarter(int quarters) {
+void calculator::model::Date::IncreaseQuarter(int quarters) {
   IncreaseMonth(quarters * 3);
 }
 
-void s21::model::Date::IncreaseHalf(int halfs) { IncreaseMonth(halfs * 6); }
+void calculator::model::Date::IncreaseHalf(int halfs) {
+  IncreaseMonth(halfs * 6);
+}
 
-void s21::model::Date::IncreaseYear(int year) {
+void calculator::model::Date::IncreaseYear(int year) {
   year_ += year;
   ValidateDate();
 }
 
-bool s21::model::Date::operator==(const Date& other) const {
+bool calculator::model::Date::operator==(const Date& other) const {
   return year_ == other.year_ && month_ == other.month_ && day_ == other.day_;
 }
 
-bool s21::model::Date::operator!=(const Date& other) const {
+bool calculator::model::Date::operator!=(const Date& other) const {
   return !(*this == other);
 }
 
-bool s21::model::Date::operator<(const Date& other) const {
+bool calculator::model::Date::operator<(const Date& other) const {
   if (year_ < other.year_) return true;
   if (year_ > other.year_) return false;
   if (month_ < other.month_) return true;
@@ -97,24 +102,24 @@ bool s21::model::Date::operator<(const Date& other) const {
   return false;
 }
 
-bool s21::model::Date::operator<=(const Date& other) const {
+bool calculator::model::Date::operator<=(const Date& other) const {
   return *this < other || *this == other;
 }
 
-bool s21::model::Date::operator>(const Date& other) const {
+bool calculator::model::Date::operator>(const Date& other) const {
   return !(*this <= other);
 }
 
-bool s21::model::Date::operator>=(const Date& other) const {
+bool calculator::model::Date::operator>=(const Date& other) const {
   return !(*this < other);
 }
 
-s21::model::Date s21::model::Date::GetCorrectDate() const {
+calculator::model::Date calculator::model::Date::GetCorrectDate() const {
   if (IsCorrect()) return *this;
   return Date(GetMaxDay(), GetMonth(), GetYear());
 }
 
-int s21::model::Date::DaysTo(const Date& other) const {
+int calculator::model::Date::DaysTo(const Date& other) const {
   if (other <= *this) return 0;
   int result = 0;
   Date date(*this);
@@ -127,7 +132,7 @@ int s21::model::Date::DaysTo(const Date& other) const {
   return result;
 }
 
-std::string s21::model::Date::ToString() const {
+std::string calculator::model::Date::ToString() const {
   std::string result;
   if (GetDay() < 10) result += '0';
   result += std::to_string(GetDay());
@@ -139,12 +144,12 @@ std::string s21::model::Date::ToString() const {
   return result;
 }
 
-int s21::model::Date::GetMaxDay() const {
+int calculator::model::Date::GetMaxDay() const {
   if (month_ == 2 && IsYearLeap()) return kDayCounts[month_ - 1] + 1;
   return kDayCounts[month_ - 1];
 }
 
-void s21::model::Date::ValidateDate() {
+void calculator::model::Date::ValidateDate() {
   is_correct_ = day_ > 0 && month_ > 0 && month_ <= 12 && year_ > 0 &&
                 day_ <= GetMaxDay();
 }

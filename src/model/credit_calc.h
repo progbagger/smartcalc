@@ -7,7 +7,7 @@
 
 #include "credit_misc.h"
 
-namespace s21 {
+namespace calculator {
 
 namespace model {
 
@@ -42,6 +42,6 @@ class CreditCalculator {
 
 }  // namespace model
 
-}  // namespace s21
+}  // namespace calculator
 
 #endif  // MODEL_CREDIT_CALC_H_

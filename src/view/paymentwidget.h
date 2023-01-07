@@ -9,7 +9,7 @@ namespace Ui {
 class PaymentWidget;
 }
 
-namespace s21 {
+namespace calculator {
 
 namespace view {
 
@@ -36,6 +36,6 @@ class PaymentWidget : public QWidget {
 
 }  // namespace view
 
-}  // namespace s21
+}  // namespace calculator
 
 #endif  // PAYMENTWIDGET_H

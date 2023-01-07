@@ -8,9 +8,9 @@
 #include "date.h"
 #include "tests_misc.h"
 
-using date_test_case_storage = std::vector<s21::model::Date>;
+using date_test_case_storage = std::vector<calculator::model::Date>;
 
-using date_comparsion_test_case = std::pair<s21::model::Date, s21::model::Date>;
+using date_comparsion_test_case = std::pair<calculator::model::Date, calculator::model::Date>;
 
 using date_comparsion_test_case_storage =
     std::vector<date_comparsion_test_case>;
@@ -54,41 +54,41 @@ inline const date_comparsion_test_case_storage kGreaterOrEqualDatesTestCases{
     {{1, 1, 32}, {1, 1, 32}},        {{999, 999, 999}, {999, 999, 999}},
     {{31, 12, 2022}, {31, 12, 2022}}};
 
-inline const std::string DateMsg(const s21::model::Date& date);
+inline const std::string DateMsg(const calculator::model::Date& date);
 
-inline const std::string DatePairMsg(const s21::model::Date& date1,
-                                     const s21::model::Date& date2);
+inline const std::string DatePairMsg(const calculator::model::Date& date1,
+                                     const calculator::model::Date& date2);
 
-inline void TestIncreaseFunction(const s21::model::Date& date,
-                                 const s21::model::Date& date_compare,
-                                 void (s21::model::Date::*function)(int),
+inline void TestIncreaseFunction(const calculator::model::Date& date,
+                                 const calculator::model::Date& date_compare,
+                                 void (calculator::model::Date::*function)(int),
                                  int value = 1, bool is_correct = true);
 
-inline void TestIncreaseDay(const s21::model::Date& date,
-                            const s21::model::Date& date_compare, int days = 1);
+inline void TestIncreaseDay(const calculator::model::Date& date,
+                            const calculator::model::Date& date_compare, int days = 1);
 
-inline void TestIncreaseWeek(const s21::model::Date& date,
-                             const s21::model::Date& date_compare,
+inline void TestIncreaseWeek(const calculator::model::Date& date,
+                             const calculator::model::Date& date_compare,
                              int weeks = 1);
 
-inline void TestIncreaseMonth(const s21::model::Date& date,
-                              const s21::model::Date& date_compare,
+inline void TestIncreaseMonth(const calculator::model::Date& date,
+                              const calculator::model::Date& date_compare,
                               int months = 1, bool is_correct = true);
 
-inline void TestIncreaseQuarter(const s21::model::Date& date,
-                                const s21::model::Date& date_compare,
+inline void TestIncreaseQuarter(const calculator::model::Date& date,
+                                const calculator::model::Date& date_compare,
                                 int quarters = 1, bool is_correct = true);
 
-inline void TestIncreaseHalf(const s21::model::Date& date,
-                             const s21::model::Date& date_compare,
+inline void TestIncreaseHalf(const calculator::model::Date& date,
+                             const calculator::model::Date& date_compare,
                              int halfs = 1, bool is_correct = true);
 
-inline void TestIncreaseYear(const s21::model::Date& date,
-                             const s21::model::Date& date_compare,
+inline void TestIncreaseYear(const calculator::model::Date& date,
+                             const calculator::model::Date& date_compare,
                              int years = 1, bool is_correct = true);
 
 using date_days_to_test_case =
-    std::tuple<s21::model::Date, s21::model::Date, int>;
+    std::tuple<calculator::model::Date, calculator::model::Date, int>;
 
 using date_days_to_test_case_storage = std::vector<date_days_to_test_case>;
 

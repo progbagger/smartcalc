@@ -1,7 +1,7 @@
 #include "deposit_calc.h"
 
-s21::model::DepositCalculator::return_type
-s21::model::DepositCalculator::Calculate(const Parameters& params) {
+calculator::model::DepositCalculator::return_type
+calculator::model::DepositCalculator::Calculate(const Parameters& params) {
   return_type result;
   long double rest = params.sum;
   long double rate = RateToPerAnnum(params.rate, params.rate_type);
@@ -34,9 +34,8 @@ s21::model::DepositCalculator::Calculate(const Parameters& params) {
   return result;
 }
 
-s21::model::Date s21::model::DepositCalculator::GetEndDate(const Date& start,
-                                                           int term,
-                                                           TermType term_type) {
+calculator::model::Date calculator::model::DepositCalculator::GetEndDate(
+    const Date& start, int term, TermType term_type) {
   Date result(start);
   if (term_type == TermType::kDays)
     result.IncreaseDay(term);
@@ -47,9 +46,8 @@ s21::model::Date s21::model::DepositCalculator::GetEndDate(const Date& start,
   return result.GetCorrectDate();
 }
 
-void s21::model::DepositCalculator::IncreaseDate(Date& date,
-                                                 PeriodicityType periodicity,
-                                                 const Date& end_date) {
+void calculator::model::DepositCalculator::IncreaseDate(
+    Date& date, PeriodicityType periodicity, const Date& end_date) {
   switch (periodicity) {
     case PeriodicityType::kDaily:
       date.IncreaseDay();
@@ -75,20 +73,18 @@ void s21::model::DepositCalculator::IncreaseDate(Date& date,
   }
 }
 
-void s21::model::DepositCalculator::UpdateIncome(long double* income,
-                                                 long double rest,
-                                                 long double rate,
-                                                 const Date& previous_date,
-                                                 const Date& next_date) {
+void calculator::model::DepositCalculator::UpdateIncome(
+    long double* income, long double rest, long double rate,
+    const Date& previous_date, const Date& next_date) {
   int term = previous_date.DaysTo(next_date);
   long double days_in_year = (next_date.IsYearLeap() ? 366.0 : 365.0);
   *income += rest * rate * (term / days_in_year);
 }
 
-const s21::model::DepositCalculator::payment_type*
-s21::model::DepositCalculator::ChoosePayment(long double* change,
-                                             const payment_type* refill,
-                                             const payment_type* withdrawal) {
+const calculator::model::DepositCalculator::payment_type*
+calculator::model::DepositCalculator::ChoosePayment(
+    long double* change, const payment_type* refill,
+    const payment_type* withdrawal) {
   if (refill && withdrawal && refill->first == withdrawal->first) {
     *change = refill->second + withdrawal->second;
     return refill;
@@ -104,7 +100,7 @@ s21::model::DepositCalculator::ChoosePayment(long double* change,
   return nullptr;
 }
 
-void s21::model::DepositCalculator::ManageRefillsAndWithdrawals(
+void calculator::model::DepositCalculator::ManageRefillsAndWithdrawals(
     std::vector<record_type>& result, long double* rest, long double* income,
     long double rate, long double minimum, Date& previous_date,
     Date& current_date, payment_list& refills, payment_list& withdrawals) {
@@ -133,7 +129,7 @@ void s21::model::DepositCalculator::ManageRefillsAndWithdrawals(
   } while (refill || withdrawal);
 }
 
-void s21::model::DepositCalculator::ClearPayment(
+void calculator::model::DepositCalculator::ClearPayment(
     const payment_type* payment, const payment_type** refill,
     const payment_type** withdrawal) {
   if (*refill && *withdrawal && (*refill)->first == (*withdrawal)->first) {
@@ -150,10 +146,10 @@ void s21::model::DepositCalculator::ClearPayment(
   }
 }
 
-const s21::model::DepositCalculator::payment_type*
-s21::model::DepositCalculator::CheckPaymentsList(const Date& start_date,
-                                                 const Date& next_date,
-                                                 payment_list& payments_list) {
+const calculator::model::DepositCalculator::payment_type*
+calculator::model::DepositCalculator::CheckPaymentsList(
+    const Date& start_date, const Date& next_date,
+    payment_list& payments_list) {
   const payment_type* result = nullptr;
   for (auto payment = payments_list.begin(); payment != payments_list.end();
        ++payment) {

@@ -12,7 +12,7 @@ class MathCalculator;
 }
 QT_END_NAMESPACE
 
-namespace s21 {
+namespace calculator {
 
 namespace view {
 
@@ -128,6 +128,6 @@ class MathCalculator : public QMainWindow {
 
 }  // namespace view
 
-}  // namespace s21
+}  // namespace calculator
 
 #endif  // VIEW_MATH_CALCULATOR_VIEW_H_

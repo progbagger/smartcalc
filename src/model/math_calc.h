@@ -7,7 +7,7 @@
 #include "tokens.h"
 #include "validator.h"
 
-namespace s21 {
+namespace calculator {
 
 namespace model {
 
@@ -49,6 +49,6 @@ class MathCalculator {
 
 }  // namespace model
 
-}  // namespace s21
+}  // namespace calculator
 
 #endif  // MODEL_MATH_CALC_H_

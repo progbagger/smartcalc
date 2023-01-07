@@ -5,7 +5,7 @@
 #include "deposit_calc.h"
 #include "math_calc.h"
 
-namespace s21 {
+namespace calculator {
 
 namespace model {
 
@@ -25,6 +25,6 @@ class Model {
 
 }  // namespace model
 
-}  // namespace s21
+}  // namespace calculator
 
 #endif  // MODEL_MODEL_H_

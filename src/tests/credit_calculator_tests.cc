@@ -8,7 +8,7 @@ inline std::size_t GetTerm(const credit_calculator_test_case_type& test_case) {
   return std::get<1>(test_case.first);
 }
 
-inline s21::model::TermType GetTermType(
+inline calculator::model::TermType GetTermType(
     const credit_calculator_test_case_type& test_case) {
   return std::get<2>(test_case.first);
 }
@@ -17,19 +17,19 @@ inline double GetRate(const credit_calculator_test_case_type& test_case) {
   return std::get<3>(test_case.first);
 }
 
-inline s21::model::RateType GetRateType(
+inline calculator::model::RateType GetRateType(
     const credit_calculator_test_case_type& test_case) {
   return std::get<4>(test_case.first);
 }
 
-inline s21::model::CreditCalculator::CreditType GetCreditType(
+inline calculator::model::CreditCalculator::CreditType GetCreditType(
     const credit_calculator_test_case_type& test_case) {
   return std::get<5>(test_case.first);
 }
 
-inline s21::model::CreditCalculator::Parameters CreateParameters(
+inline calculator::model::CreditCalculator::Parameters CreateParameters(
     const credit_calculator_test_case_type& test_case) {
-  s21::model::CreditCalculator::Parameters params;
+  calculator::model::CreditCalculator::Parameters params;
   params.sum = GetSum(test_case);
   params.term = GetTerm(test_case);
   params.term_type = GetTermType(test_case);
@@ -52,8 +52,8 @@ inline const std::string ParamsMsg(
 
 inline void TestCreditCalculatorOneCase(
     const credit_calculator_test_case_type& test_case) {
-  s21::model::CreditCalculator calculator;
-  s21::model::CreditCalculator::Parameters params = CreateParameters(test_case);
+  calculator::model::CreditCalculator calculator;
+  calculator::model::CreditCalculator::Parameters params = CreateParameters(test_case);
   credit_calculator_test_result_type results = calculator.Calculate(params);
   ASSERT_EQ(results.size(), test_case.second.size() + 1)
       << ParamsMsg(test_case);

@@ -1,7 +1,7 @@
 #include "credit_calc.h"
 
-std::vector<s21::model::CreditCalculator::record_type>
-s21::model::CreditCalculator::Calculate(const Parameters& params) {
+std::vector<calculator::model::CreditCalculator::record_type>
+calculator::model::CreditCalculator::Calculate(const Parameters& params) {
   double term = TermToMonths(params.term, params.term_type);
   double rate = RateToMonthly(params.rate, params.rate_type);
   std::vector<record_type> result;
@@ -14,7 +14,7 @@ s21::model::CreditCalculator::Calculate(const Parameters& params) {
   return result;
 }
 
-void s21::model::CreditCalculator::PushRecord(
+void calculator::model::CreditCalculator::PushRecord(
     double* sum, double* in_interest_total, double* in_payment_total,
     double rate, double monthly_payment, std::vector<record_type>& records) {
   double in_interest = *sum * rate;
@@ -26,7 +26,7 @@ void s21::model::CreditCalculator::PushRecord(
       record_type{monthly_payment, in_payment, in_interest, *sum});
 }
 
-void s21::model::CreditCalculator::CalculateAnnuity(
+void calculator::model::CreditCalculator::CalculateAnnuity(
     double sum, std::size_t term, double rate,
     std::vector<record_type>& records) {
   double monthly_payment =
@@ -41,7 +41,7 @@ void s21::model::CreditCalculator::CalculateAnnuity(
                                 in_payment_total, in_interest_total, 0});
 }
 
-void s21::model::CreditCalculator::CalculateDifferentiated(
+void calculator::model::CreditCalculator::CalculateDifferentiated(
     double sum, std::size_t term, double rate,
     std::vector<record_type>& records) {
   double rest = sum;

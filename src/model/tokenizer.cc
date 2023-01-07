@@ -1,8 +1,8 @@
 #include "tokenizer.h"
 
-s21::model::Tokenizer::~Tokenizer() { RemoveData(); }
+calculator::model::Tokenizer::~Tokenizer() { RemoveData(); }
 
-s21::model::Tokenizer& s21::model::Tokenizer::operator=(
+calculator::model::Tokenizer& calculator::model::Tokenizer::operator=(
     Tokenizer&& other) noexcept {
   if (this != &other) {
     RemoveData();
@@ -13,90 +13,91 @@ s21::model::Tokenizer& s21::model::Tokenizer::operator=(
   return *this;
 }
 
-void s21::model::Tokenizer::RemoveData() {
+void calculator::model::Tokenizer::RemoveData() {
   for (const auto& i : tokens_) delete i;
 }
 
-s21::model::Tokenizer::Tokenizer(const std::string& expression)
+calculator::model::Tokenizer::Tokenizer(const std::string& expression)
     : expression_(expression), tokens_(), is_parced_(false) {
   TokenizeExpression();
 }
 
-const std::string& s21::model::Tokenizer::GetExpression() const {
+const std::string& calculator::model::Tokenizer::GetExpression() const {
   return expression_;
 }
 
-const s21::model::Tokenizer::tokens_type& s21::model::Tokenizer::GetTokensList()
-    const {
+const calculator::model::Tokenizer::tokens_type&
+calculator::model::Tokenizer::GetTokensList() const {
   return tokens_;
 }
 
-bool s21::model::Tokenizer::GetStatus() const { return is_parced_; }
+bool calculator::model::Tokenizer::GetStatus() const { return is_parced_; }
 
-const s21::model::Number* s21::model::Tokenizer::CastToNumber(token_ptr token) {
+const calculator::model::Number* calculator::model::Tokenizer::CastToNumber(
+    token_ptr token) {
   return static_cast<const Number*>(token);
 }
 
-const s21::model::Operator* s21::model::Tokenizer::CastToOperator(
+const calculator::model::Operator* calculator::model::Tokenizer::CastToOperator(
     token_ptr token) {
   return static_cast<const Operator*>(token);
 }
 
-const s21::model::UnaryOperator* s21::model::Tokenizer::CastToUnaryOperator(
-    token_ptr token) {
+const calculator::model::UnaryOperator*
+calculator::model::Tokenizer::CastToUnaryOperator(token_ptr token) {
   return static_cast<const UnaryOperator*>(token);
 }
 
-const s21::model::Bracket* s21::model::Tokenizer::CastToBracket(
+const calculator::model::Bracket* calculator::model::Tokenizer::CastToBracket(
     token_ptr token) {
   return static_cast<const Bracket*>(token);
 }
 
-bool s21::model::Tokenizer::IsNumber(token_ptr token) {
+bool calculator::model::Tokenizer::IsNumber(token_ptr token) {
   return token && token->GetType() == TokenType::kNumberType;
 }
 
-bool s21::model::Tokenizer::IsUnaryOperator(token_ptr token) {
+bool calculator::model::Tokenizer::IsUnaryOperator(token_ptr token) {
   return token->GetType() == TokenType::kUnaryOperatorType;
 }
 
-bool s21::model::Tokenizer::IsBinaryOperator(token_ptr token) {
+bool calculator::model::Tokenizer::IsBinaryOperator(token_ptr token) {
   return token && token->GetType() == TokenType::kBinaryOperatorType;
 }
 
-bool s21::model::Tokenizer::IsFunction(token_ptr token) {
+bool calculator::model::Tokenizer::IsFunction(token_ptr token) {
   return token && token->GetType() == TokenType::kFunctionType;
 }
 
-bool s21::model::Tokenizer::IsBracket(token_ptr token) {
+bool calculator::model::Tokenizer::IsBracket(token_ptr token) {
   return token && token->GetType() == TokenType::kBracketType;
 }
 
-bool s21::model::Tokenizer::IsPostfix(token_ptr token) {
+bool calculator::model::Tokenizer::IsPostfix(token_ptr token) {
   return token && IsUnaryOperator(token) &&
          CastToUnaryOperator(token)->IsPostfix();
 }
 
-bool s21::model::Tokenizer::IsPrefix(token_ptr token) {
+bool calculator::model::Tokenizer::IsPrefix(token_ptr token) {
   return token && IsUnaryOperator(token) &&
          CastToUnaryOperator(token)->IsPrefix();
 }
 
-bool s21::model::Tokenizer::IsLeftAssotiative(token_ptr token) {
+bool calculator::model::Tokenizer::IsLeftAssotiative(token_ptr token) {
   return token && IsUnaryOperator(token) &&
          CastToUnaryOperator(token)->IsLeftAssotiative();
 }
 
-bool s21::model::Tokenizer::IsClosingBracket(token_ptr token) {
+bool calculator::model::Tokenizer::IsClosingBracket(token_ptr token) {
   return token && IsBracket(token) && CastToBracket(token)->IsClosing();
 }
 
-bool s21::model::Tokenizer::IsOpeningBracket(token_ptr token) {
+bool calculator::model::Tokenizer::IsOpeningBracket(token_ptr token) {
   return token && IsBracket(token) && CastToBracket(token)->IsOpening();
 }
 
-bool s21::model::Tokenizer::ExpressionContainsAtPos(const std::string& substr,
-                                                    size_type pos) const {
+bool calculator::model::Tokenizer::ExpressionContainsAtPos(
+    const std::string& substr, size_type pos) const {
   size_type i_substr = 0;
   while (i_substr < substr.length() && pos < expression_.length()) {
     if (expression_.at(pos++) != substr.at(i_substr++)) return false;
@@ -105,7 +106,7 @@ bool s21::model::Tokenizer::ExpressionContainsAtPos(const std::string& substr,
 }
 
 template <class T>
-bool s21::model::Tokenizer::FindAndPushTokens(size_type& current_pos) {
+bool calculator::model::Tokenizer::FindAndPushTokens(size_type& current_pos) {
   for (const auto& i : T::operations_) {
     if (ExpressionContainsAtPos(i.first, current_pos)) {
       tokens_.push_back(new T(i.first));
@@ -116,12 +117,12 @@ bool s21::model::Tokenizer::FindAndPushTokens(size_type& current_pos) {
   return false;
 }
 
-bool s21::model::Tokenizer::CheckUnary(size_type& current_pos) {
+bool calculator::model::Tokenizer::CheckUnary(size_type& current_pos) {
   if (tokens_.empty() && expression_.at(current_pos) == '!') return false;
   return FindAndPushTokens<UnaryOperator>(current_pos);
 }
 
-bool s21::model::Tokenizer::CheckBinary(size_type& current_pos) {
+bool calculator::model::Tokenizer::CheckBinary(size_type& current_pos) {
   if (tokens_.empty()) return false;
   if (IsBinaryOperator(tokens_.back()) || IsOpeningBracket(tokens_.back()) ||
       IsFunction(tokens_.back())) {
@@ -130,7 +131,7 @@ bool s21::model::Tokenizer::CheckBinary(size_type& current_pos) {
   return FindAndPushTokens<BinaryOperator>(current_pos);
 }
 
-bool s21::model::Tokenizer::CheckFunctions(size_type& current_pos) {
+bool calculator::model::Tokenizer::CheckFunctions(size_type& current_pos) {
   if (!tokens_.empty()) {
     if (IsNumber(tokens_.back())) {
       return false;
@@ -139,11 +140,11 @@ bool s21::model::Tokenizer::CheckFunctions(size_type& current_pos) {
   return FindAndPushTokens<Function>(current_pos);
 }
 
-bool s21::model::Tokenizer::CheckOther(size_type& current_pos) {
+bool calculator::model::Tokenizer::CheckOther(size_type& current_pos) {
   return FindAndPushTokens<Bracket>(current_pos);
 }
 
-bool s21::model::Tokenizer::CheckVariable(size_type& current_pos) {
+bool calculator::model::Tokenizer::CheckVariable(size_type& current_pos) {
   if (expression_.at(current_pos) == 'x') {
     ++current_pos;
     tokens_.push_back(new Number("x"));
@@ -152,7 +153,7 @@ bool s21::model::Tokenizer::CheckVariable(size_type& current_pos) {
   return false;
 }
 
-bool s21::model::Tokenizer::CheckNumber(size_type& current_pos) {
+bool calculator::model::Tokenizer::CheckNumber(size_type& current_pos) {
   try {
     size_type shift = 0;
     double number = std::stod(expression_.substr(current_pos), &shift);
@@ -164,7 +165,7 @@ bool s21::model::Tokenizer::CheckNumber(size_type& current_pos) {
   return true;
 }
 
-void s21::model::Tokenizer::TokenizeExpression() {
+void calculator::model::Tokenizer::TokenizeExpression() {
   size_type current_pos = 0;
   while (current_pos < expression_.length()) {
     if (CheckOther(current_pos)) continue;

@@ -2,7 +2,7 @@
 
 #include "ui_credit_calculator_view.h"
 
-s21::view::CreditCalculator::CreditCalculator(
+calculator::view::CreditCalculator::CreditCalculator(
     controller::Controller* controller, QWidget* parent)
     : QMainWindow(parent),
       ui(new Ui::CreditCalculator),
@@ -10,20 +10,21 @@ s21::view::CreditCalculator::CreditCalculator(
   ui->setupUi(this);
 }
 
-s21::view::CreditCalculator::~CreditCalculator() { delete ui; }
+calculator::view::CreditCalculator::~CreditCalculator() { delete ui; }
 
-void s21::view::CreditCalculator::
+void calculator::view::CreditCalculator::
     on_actionMath_and_plots_calculator_triggered() {
   emit OpenMathCalculator();
   hide();
 }
 
-void s21::view::CreditCalculator::on_actionDeposit_calculator_triggered() {
+void calculator::view::CreditCalculator::
+    on_actionDeposit_calculator_triggered() {
   emit OpenDepositCalculator();
   hide();
 }
 
-void s21::view::CreditCalculator::on_calculate_button_clicked() {
+void calculator::view::CreditCalculator::on_calculate_button_clicked() {
   model::CreditCalculator::Parameters params;
   params.sum = ui->sum_input->value();
   params.term = ui->term_input->value();
@@ -36,29 +37,29 @@ void s21::view::CreditCalculator::on_calculate_button_clicked() {
   PushRecordsInTable(result);
 }
 
-s21::model::TermType s21::view::CreditCalculator::GetTermType() {
+calculator::model::TermType calculator::view::CreditCalculator::GetTermType() {
   if (ui->term_type_input->currentIndex() == 0)
     return model::TermType::kMonths;
   else
     return model::TermType::kYears;
 }
 
-s21::model::RateType s21::view::CreditCalculator::GetRateType() {
+calculator::model::RateType calculator::view::CreditCalculator::GetRateType() {
   if (ui->rate_input_type->currentIndex() == 0)
     return model::RateType::kPerAnnum;
   else
     return model::RateType::kPerMonth;
 }
 
-s21::model::CreditCalculator::CreditType
-s21::view::CreditCalculator::GetCreditType() {
+calculator::model::CreditCalculator::CreditType
+calculator::view::CreditCalculator::GetCreditType() {
   if (ui->credit_type_annuity_radio->isChecked())
     return model::CreditCalculator::CreditType::kAnnuity;
   else
     return model::CreditCalculator::CreditType::kDifferentiated;
 }
 
-void s21::view::CreditCalculator::PushRecordsInTable(
+void calculator::view::CreditCalculator::PushRecordsInTable(
     const std::vector<model::CreditCalculator::record_type>& records) {
   ui->result_table->setRowCount(0);
   int current_row = 0;

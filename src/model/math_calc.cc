@@ -1,24 +1,25 @@
 #include "math_calc.h"
 
-s21::model::MathCalculator::MathCalculator(const std::string& expression)
+calculator::model::MathCalculator::MathCalculator(const std::string& expression)
     : tokenizer_(expression), validator_(&tokenizer_) {}
 
-s21::model::MathCalculator::MathCalculator(std::string&& expression)
+calculator::model::MathCalculator::MathCalculator(std::string&& expression)
     : tokenizer_(expression), validator_(&tokenizer_) {}
 
-const std::string& s21::model::MathCalculator::GetExpression() const {
+const std::string& calculator::model::MathCalculator::GetExpression() const {
   return tokenizer_.GetExpression();
 }
 
-void s21::model::MathCalculator::SetExpression(const std::string& expression) {
+void calculator::model::MathCalculator::SetExpression(
+    const std::string& expression) {
   *this = std::move(MathCalculator(expression));
 }
 
-bool s21::model::MathCalculator::GetStatus() const {
+bool calculator::model::MathCalculator::GetStatus() const {
   return validator_.GetStatus();
 }
 
-void s21::model::MathCalculator::DeleteNumbersInStack(
+void calculator::model::MathCalculator::DeleteNumbersInStack(
     std::stack<Operator::number_pair>& stack) const {
   while (!stack.empty()) {
     if (stack.top().second) delete stack.top().first;
@@ -26,8 +27,9 @@ void s21::model::MathCalculator::DeleteNumbersInStack(
   }
 }
 
-bool s21::model::MathCalculator::HandleNumber(numbers_type& numbers,
-                                              token_ptr token, double x) const {
+bool calculator::model::MathCalculator::HandleNumber(numbers_type& numbers,
+                                                     token_ptr token,
+                                                     double x) const {
   if (Tokenizer::IsNumber(token)) {
     const Number* number = Tokenizer::CastToNumber(token);
     if (number->IsVariable()) {
@@ -40,7 +42,7 @@ bool s21::model::MathCalculator::HandleNumber(numbers_type& numbers,
   return false;
 }
 
-bool s21::model::MathCalculator::HandleEmptyStackAndOpeningBracket(
+bool calculator::model::MathCalculator::HandleEmptyStackAndOpeningBracket(
     operators_type& operators, token_ptr token) const {
   if (operators.empty() || Tokenizer::IsOpeningBracket(token)) {
     operators.push(Tokenizer::CastToOperator(token));
@@ -49,9 +51,8 @@ bool s21::model::MathCalculator::HandleEmptyStackAndOpeningBracket(
   return false;
 }
 
-bool s21::model::MathCalculator::HandleClosingBracket(operators_type& operators,
-                                                      numbers_type& numbers,
-                                                      token_ptr token) const {
+bool calculator::model::MathCalculator::HandleClosingBracket(
+    operators_type& operators, numbers_type& numbers, token_ptr token) const {
   if (Tokenizer::IsClosingBracket(token)) {
     while (!operators.empty() &&
            !Tokenizer::IsOpeningBracket(operators.top())) {
@@ -65,9 +66,8 @@ bool s21::model::MathCalculator::HandleClosingBracket(operators_type& operators,
   return false;
 }
 
-void s21::model::MathCalculator::HandleNonEmptyStack(operators_type& operators,
-                                                     numbers_type& numbers,
-                                                     token_ptr token) const {
+void calculator::model::MathCalculator::HandleNonEmptyStack(
+    operators_type& operators, numbers_type& numbers, token_ptr token) const {
   while (!operators.empty() && !Tokenizer::IsOpeningBracket(operators.top()) &&
          *operators.top() >= *Tokenizer::CastToOperator(token)) {
     operators.top()->Apply(numbers);
@@ -76,7 +76,7 @@ void s21::model::MathCalculator::HandleNonEmptyStack(operators_type& operators,
   operators.push(Tokenizer::CastToOperator(token));
 }
 
-void s21::model::MathCalculator::ApplyRestOperators(
+void calculator::model::MathCalculator::ApplyRestOperators(
     operators_type& operators, numbers_type& numbers) const {
   while (!operators.empty()) {
     operators.top()->Apply(numbers);
@@ -84,7 +84,7 @@ void s21::model::MathCalculator::ApplyRestOperators(
   }
 }
 
-double s21::model::MathCalculator::Calculate(double x) const {
+double calculator::model::MathCalculator::Calculate(double x) const {
   if (!GetStatus()) return NAN;
   numbers_type numbers;
   operators_type operators;

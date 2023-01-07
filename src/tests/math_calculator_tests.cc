@@ -7,7 +7,7 @@ inline const std::string NoteWithExpression(const std::string& str) {
 inline void TestExpression(const std::string& expression,
                            bool expected_validation, double expected_result,
                            double x) {
-  s21::model::MathCalculator calculator(expression);
+  calculator::model::MathCalculator calculator(expression);
   EXPECT_EQ(calculator.GetStatus(), expected_validation)
       << NoteWithExpression(expression);
   EXPECT_EQ(calculator.GetExpression(), expression)
@@ -39,7 +39,7 @@ inline void TestAllCases(
 }
 
 TEST(MathCalculator, GetExpressionAndSetExpression) {
-  s21::model::MathCalculator calculator;
+  calculator::model::MathCalculator calculator;
   EXPECT_TRUE(calculator.GetExpression().empty());
 
   calculator.SetExpression("aboba");
@@ -47,7 +47,7 @@ TEST(MathCalculator, GetExpressionAndSetExpression) {
 }
 
 TEST(MathCalculator, GetStatus) {
-  s21::model::MathCalculator calculator("5");
+  calculator::model::MathCalculator calculator("5");
   EXPECT_TRUE(calculator.GetStatus());
 
   calculator.SetExpression("aboba");

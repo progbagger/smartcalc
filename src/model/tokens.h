@@ -7,7 +7,7 @@
 #include <string>
 #include <tuple>
 
-namespace s21 {
+namespace calculator {
 
 namespace model {
 
@@ -164,6 +164,6 @@ class Bracket : public Operator {
 
 }  // namespace model
 
-}  // namespace s21
+}  // namespace calculator
 
 #endif  // MODEL_TOKENS_H_

@@ -1,11 +1,12 @@
 #include "validator.h"
 
-s21::model::Validator::Validator(tokenizer_type tokenizer)
+calculator::model::Validator::Validator(tokenizer_type tokenizer)
     : tokenizer_(tokenizer), is_valid_(Validate()) {}
 
-bool s21::model::Validator::GetStatus() const { return is_valid_; }
+bool calculator::model::Validator::GetStatus() const { return is_valid_; }
 
-bool s21::model::Validator::CheckNumber(token_ptr prev_token, token_ptr token) {
+bool calculator::model::Validator::CheckNumber(token_ptr prev_token,
+                                               token_ptr token) {
   return Tokenizer::IsNumber(token) &&
          (!prev_token ||
           (Tokenizer::IsPrefix(prev_token) &&
@@ -14,39 +15,39 @@ bool s21::model::Validator::CheckNumber(token_ptr prev_token, token_ptr token) {
           Tokenizer::IsOpeningBracket(prev_token));
 }
 
-bool s21::model::Validator::CheckPostfix(token_ptr prev_token,
-                                         token_ptr token) {
+bool calculator::model::Validator::CheckPostfix(token_ptr prev_token,
+                                                token_ptr token) {
   return Tokenizer::IsPostfix(token) &&
          (Tokenizer::IsNumber(prev_token) ||
           Tokenizer::IsClosingBracket(prev_token) ||
           Tokenizer::IsPostfix(prev_token));
 }
 
-bool s21::model::Validator::CheckUnaryOperator(token_ptr prev_token,
-                                               token_ptr token) {
+bool calculator::model::Validator::CheckUnaryOperator(token_ptr prev_token,
+                                                      token_ptr token) {
   return Tokenizer::IsUnaryOperator(token) &&
          ((Tokenizer::IsPrefix(token) &&
            (!prev_token || Tokenizer::IsOpeningBracket(prev_token))) ||
           CheckPostfix(prev_token, token));
 }
 
-bool s21::model::Validator::CheckBinaryOperator(token_ptr prev_token,
-                                                token_ptr token) {
+bool calculator::model::Validator::CheckBinaryOperator(token_ptr prev_token,
+                                                       token_ptr token) {
   return Tokenizer::IsBinaryOperator(token) &&
          (Tokenizer::IsPostfix(prev_token) ||
           Tokenizer::IsClosingBracket(prev_token) ||
           Tokenizer::IsNumber(prev_token));
 }
 
-bool s21::model::Validator::CheckFunction(token_ptr prev_token,
-                                          token_ptr token) {
+bool calculator::model::Validator::CheckFunction(token_ptr prev_token,
+                                                 token_ptr token) {
   return Tokenizer::IsFunction(token) &&
          (!prev_token || Tokenizer::IsPrefix(prev_token) ||
           Tokenizer::IsBinaryOperator(prev_token) ||
           Tokenizer::IsOpeningBracket(prev_token));
 }
 
-bool s21::model::Validator::CheckBracket(
+bool calculator::model::Validator::CheckBracket(
     token_ptr prev_token, token_ptr token,
     std::stack<token_ptr>& opened_brackets) {
   return CheckOpenedBrackets(token, opened_brackets) &&
@@ -61,8 +62,9 @@ bool s21::model::Validator::CheckBracket(
             Tokenizer::IsClosingBracket(prev_token))));
 }
 
-bool s21::model::Validator::CheckToken(token_ptr prev_token, token_ptr token,
-                                       std::stack<token_ptr>& opened_brackets) {
+bool calculator::model::Validator::CheckToken(
+    token_ptr prev_token, token_ptr token,
+    std::stack<token_ptr>& opened_brackets) {
   return CheckNumber(prev_token, token) ||
          CheckUnaryOperator(prev_token, token) ||
          CheckBinaryOperator(prev_token, token) ||
@@ -70,7 +72,7 @@ bool s21::model::Validator::CheckToken(token_ptr prev_token, token_ptr token,
          CheckBracket(prev_token, token, opened_brackets);
 }
 
-bool s21::model::Validator::CheckOpenedBrackets(
+bool calculator::model::Validator::CheckOpenedBrackets(
     token_ptr token, std::stack<token_ptr>& opened_brackets) {
   if (!Tokenizer::IsBracket(token)) return false;
   if (Tokenizer::IsClosingBracket(token)) {
@@ -85,14 +87,14 @@ bool s21::model::Validator::CheckOpenedBrackets(
   return true;
 }
 
-bool s21::model::Validator::CheckLastToken(
+bool calculator::model::Validator::CheckLastToken(
     token_ptr prev_token, token_ptr token,
     std::stack<token_ptr>& opened_brackets) {
   return CheckNumber(prev_token, token) || CheckPostfix(prev_token, token) ||
          CheckOpenedBrackets(token, opened_brackets);
 }
 
-bool s21::model::Validator::Validate() const {
+bool calculator::model::Validator::Validate() const {
   if (!tokenizer_->GetStatus()) return false;
   token_ptr previous = nullptr;
   std::stack<token_ptr> opened_brackets;

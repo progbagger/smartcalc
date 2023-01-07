@@ -3,7 +3,7 @@
 
 #include "model.h"
 
-namespace s21 {
+namespace calculator {
 
 namespace controller {
 
@@ -49,6 +49,6 @@ class Controller {
 
 }  // namespace controller
 
-}  // namespace s21
+}  // namespace calculator
 
 #endif  // CONTROLLER_CONTROLLER_H_

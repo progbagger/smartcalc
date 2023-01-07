@@ -8,7 +8,7 @@
 #include "credit_misc.h"
 #include "date.h"
 
-namespace s21 {
+namespace calculator {
 
 namespace model {
 
@@ -74,6 +74,6 @@ class DepositCalculator {
 
 }  // namespace model
 
-}  // namespace s21
+}  // namespace calculator
 
 #endif  // MODEL_DEPOSIT_CALC_H_

@@ -12,11 +12,11 @@
 constexpr double kPrecision = 1;
 
 using credit_calculator_test_input_type =
-    std::tuple<double, std::size_t, s21::model::TermType, double,
-               s21::model::RateType, s21::model::CreditCalculator::CreditType>;
+    std::tuple<double, std::size_t, calculator::model::TermType, double,
+               calculator::model::RateType, calculator::model::CreditCalculator::CreditType>;
 
 using credit_calculator_test_result_type =
-    std::vector<s21::model::CreditCalculator::record_type>;
+    std::vector<calculator::model::CreditCalculator::record_type>;
 
 using credit_calculator_test_case_type =
     std::pair<credit_calculator_test_input_type,
@@ -27,9 +27,9 @@ using credit_calculator_test_case_storage_type =
 
 inline credit_calculator_test_case_storage_type kAnnuityTestCases{
     {// input
-     {1'000'000.00, 1, s21::model::TermType::kYears, 9.0,
-      s21::model::RateType::kPerAnnum,
-      s21::model::CreditCalculator::CreditType::kAnnuity},
+     {1'000'000.00, 1, calculator::model::TermType::kYears, 9.0,
+      calculator::model::RateType::kPerAnnum,
+      calculator::model::CreditCalculator::CreditType::kAnnuity},
      // result
      {{87'451.48, 79'951.48, 7'500.00, 920'048.52},
       {87'451.48, 80'551.12, 6'900.36, 839'497.40},
@@ -46,9 +46,9 @@ inline credit_calculator_test_case_storage_type kAnnuityTestCases{
       {1'049'417.76, 1'000'000.03, 49'417.73, 0.0}}},
     // next test
     {// input
-     {4'000'000.00, 2, s21::model::TermType::kYears, 7.45,
-      s21::model::RateType::kPerAnnum,
-      s21::model::CreditCalculator::CreditType::kAnnuity},
+     {4'000'000.00, 2, calculator::model::TermType::kYears, 7.45,
+      calculator::model::RateType::kPerAnnum,
+      calculator::model::CreditCalculator::CreditType::kAnnuity},
      // result
      {{179'907.44, 155'074.11, 24'833.33, 3'844'925.89},
       {179'907.44, 156'036.86, 23'870.58, 3'688'889.03},
@@ -77,9 +77,9 @@ inline credit_calculator_test_case_storage_type kAnnuityTestCases{
       {4'317'778.56, 3'999'999.94, 317'778.62, 0.00}}},
     // next test
     {// input
-     {350'000.00, 4, s21::model::TermType::kMonths, 11.92 / 12,
-      s21::model::RateType::kPerMonth,
-      s21::model::CreditCalculator::CreditType::kAnnuity},
+     {350'000.00, 4, calculator::model::TermType::kMonths, 11.92 / 12,
+      calculator::model::RateType::kPerMonth,
+      calculator::model::CreditCalculator::CreditType::kAnnuity},
      // result
      {{89'683.66, 86'206.99, 3'476.67, 263'793.01},
       {89'683.66, 87'063.32, 2'620.34, 176'729.69},
@@ -88,9 +88,9 @@ inline credit_calculator_test_case_storage_type kAnnuityTestCases{
       {358'734.64, 350'000.02, 8'734.62, 0.00}}},
     // next_test
     {// input
-     {1'500'000.00, 9, s21::model::TermType::kMonths, 13.78,
-      s21::model::RateType::kPerAnnum,
-      s21::model::CreditCalculator::CreditType::kAnnuity},
+     {1'500'000.00, 9, calculator::model::TermType::kMonths, 13.78,
+      calculator::model::RateType::kPerAnnum,
+      calculator::model::CreditCalculator::CreditType::kAnnuity},
      // result
      {{176'381.77, 159'156.77, 17'225.00, 1'340'843.23},
       {176'381.77, 160'984.42, 15'397.35, 1'179'858.81},
@@ -104,9 +104,9 @@ inline credit_calculator_test_case_storage_type kAnnuityTestCases{
       {1'587'435.93, 1'500'000.00, 87'435.93, 0.00}}},
     // next test
     {// input
-     {123'456'789.00, 2, s21::model::TermType::kYears, 22.98,
-      s21::model::RateType::kPerAnnum,
-      s21::model::CreditCalculator::CreditType::kAnnuity},
+     {123'456'789.00, 2, calculator::model::TermType::kYears, 22.98,
+      calculator::model::RateType::kPerAnnum,
+      calculator::model::CreditCalculator::CreditType::kAnnuity},
      // result
      {{6'464'614.40, 4'100'416.89, 2'364'197.51, 119'356'372.11},
       {6'464'614.40, 4'178'939.87, 2'285'674.53, 115'177'432.24},
@@ -136,9 +136,9 @@ inline credit_calculator_test_case_storage_type kAnnuityTestCases{
 
 inline credit_calculator_test_case_storage_type kDifferentiatedTestCases{
     {// input
-     {100'000.00, 8, s21::model::TermType::kMonths, 9.13,
-      s21::model::RateType::kPerAnnum,
-      s21::model::CreditCalculator::CreditType::kDifferentiated},
+     {100'000.00, 8, calculator::model::TermType::kMonths, 9.13,
+      calculator::model::RateType::kPerAnnum,
+      calculator::model::CreditCalculator::CreditType::kDifferentiated},
      // result
      {{13'260.83, 12'500.00, 760.83, 87'500.00},
       {13'165.73, 12'500.00, 665.73, 75'000.00},
@@ -151,9 +151,9 @@ inline credit_calculator_test_case_storage_type kDifferentiatedTestCases{
       {103'423.75, 100'000.00, 3'423.75, 0.00}}},
     // next test
     {// input
-     {1'000'000.00, 20, s21::model::TermType::kMonths, 1,
-      s21::model::RateType::kPerMonth,
-      s21::model::CreditCalculator::CreditType::kDifferentiated},
+     {1'000'000.00, 20, calculator::model::TermType::kMonths, 1,
+      calculator::model::RateType::kPerMonth,
+      calculator::model::CreditCalculator::CreditType::kDifferentiated},
      // result
      {{60'000.00, 50'000.00, 10'000.00, 950'000.00},
       {59'500.00, 50'000.00, 9'500.00, 900'000.00},
@@ -178,9 +178,9 @@ inline credit_calculator_test_case_storage_type kDifferentiatedTestCases{
       {1'105'000.00, 1'000'000.00, 105'000.00, 0.00}}},
     // next test
     {// input
-     {200'000.00, 1, s21::model::TermType::kYears, 7.55,
-      s21::model::RateType::kPerAnnum,
-      s21::model::CreditCalculator::CreditType::kDifferentiated},
+     {200'000.00, 1, calculator::model::TermType::kYears, 7.55,
+      calculator::model::RateType::kPerAnnum,
+      calculator::model::CreditCalculator::CreditType::kDifferentiated},
      // result
      {{17'925.00, 16'666.67, 1'258.33, 183'333.33},
       {17'820.14, 16'666.67, 1'153.47, 166'666.67},
@@ -197,9 +197,9 @@ inline credit_calculator_test_case_storage_type kDifferentiatedTestCases{
       {208'179.17, 200'000.00, 8'179.17, 0.00}}},
     // next test
     {// input
-     {456'654.00, 2, s21::model::TermType::kYears, 67.12,
-      s21::model::RateType::kPerAnnum,
-      s21::model::CreditCalculator::CreditType::kDifferentiated},
+     {456'654.00, 2, calculator::model::TermType::kYears, 67.12,
+      calculator::model::RateType::kPerAnnum,
+      calculator::model::CreditCalculator::CreditType::kDifferentiated},
      // result
      {{44'569.43, 19'027.25, 25'542.18, 437'626.75},
       {43'505.17, 19'027.25, 24'477.92, 418'599.50},
@@ -228,9 +228,9 @@ inline credit_calculator_test_case_storage_type kDifferentiatedTestCases{
       {775'931.26, 456'654.00, 319'277.26, 0.00}}},
     // next test
     {// input
-     {20'000.00, 2, s21::model::TermType::kMonths, 2.88,
-      s21::model::RateType::kPerAnnum,
-      s21::model::CreditCalculator::CreditType::kDifferentiated},
+     {20'000.00, 2, calculator::model::TermType::kMonths, 2.88,
+      calculator::model::RateType::kPerAnnum,
+      calculator::model::CreditCalculator::CreditType::kDifferentiated},
      // result
      {{10'048.00, 10'000.00, 48.00, 10'000.00},
       {10'024.00, 10'000.00, 24.00, 0.00},
@@ -240,18 +240,18 @@ inline double GetSum(const credit_calculator_test_case_type& test_case);
 
 inline std::size_t GetTerm(const credit_calculator_test_case_type& test_case);
 
-inline s21::model::TermType GetTermType(
+inline calculator::model::TermType GetTermType(
     const credit_calculator_test_case_type& test_case);
 
 inline double GetRate(const credit_calculator_test_case_type& test_case);
 
-inline s21::model::RateType GetRateType(
+inline calculator::model::RateType GetRateType(
     const credit_calculator_test_case_type& test_case);
 
-inline s21::model::CreditCalculator::CreditType GetCreditType(
+inline calculator::model::CreditCalculator::CreditType GetCreditType(
     const credit_calculator_test_case_type& test_case);
 
-inline s21::model::CreditCalculator::Parameters CreateParameters(
+inline calculator::model::CreditCalculator::Parameters CreateParameters(
     const credit_calculator_test_case_type& test_case);
 
 inline const std::string ParamsMsg(

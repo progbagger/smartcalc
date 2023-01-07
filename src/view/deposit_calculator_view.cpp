@@ -2,7 +2,7 @@
 
 #include "ui_deposit_calculator_view.h"
 
-s21::view::DepositCalculator::DepositCalculator(
+calculator::view::DepositCalculator::DepositCalculator(
     controller::Controller* controller, QWidget* parent)
     : QMainWindow(parent),
       ui(new Ui::DepositCalculator),
@@ -13,21 +13,22 @@ s21::view::DepositCalculator::DepositCalculator(
   ui->withdrawals_list->hide();
 }
 
-s21::view::DepositCalculator::~DepositCalculator() { delete ui; }
+calculator::view::DepositCalculator::~DepositCalculator() { delete ui; }
 
-void s21::view::DepositCalculator::
+void calculator::view::DepositCalculator::
     on_actionMath_and_plots_calculator_triggered() {
   emit OpenMathCalculator();
   hide();
 }
 
-void s21::view::DepositCalculator::on_actionCredit_calculator_triggered() {
+void calculator::view::DepositCalculator::
+    on_actionCredit_calculator_triggered() {
   emit OpenCreditCalculator();
   hide();
 }
 
-void s21::view::DepositCalculator::AddPayment(QVBoxLayout* layout,
-                                              QPushButton* button) {
+void calculator::view::DepositCalculator::AddPayment(QVBoxLayout* layout,
+                                                     QPushButton* button) {
   button->setEnabled(true);
   PaymentWidget* widget = new PaymentWidget(
       ui->term_start_input->date().addDays(1), layout, button);
@@ -41,8 +42,8 @@ void s21::view::DepositCalculator::AddPayment(QVBoxLayout* layout,
   }
 }
 
-void s21::view::DepositCalculator::ClearPayments(QVBoxLayout* layout,
-                                                 QPushButton* button) {
+void calculator::view::DepositCalculator::ClearPayments(QVBoxLayout* layout,
+                                                        QPushButton* button) {
   while (!layout->isEmpty()) {
     auto to_delete = layout->itemAt(0)->widget();
     layout->removeWidget(to_delete);
@@ -56,7 +57,7 @@ void s21::view::DepositCalculator::ClearPayments(QVBoxLayout* layout,
   }
 }
 
-void s21::view::DepositCalculator::RemovePayment() {
+void calculator::view::DepositCalculator::RemovePayment() {
   PaymentWidget* sender_widget =
       static_cast<PaymentWidget*>(sender()->parent());
   QVBoxLayout* layout = sender_widget->GetParentLayout();
@@ -73,7 +74,7 @@ void s21::view::DepositCalculator::RemovePayment() {
   delete sender_widget;
 }
 
-void s21::view::DepositCalculator::PushRecordsInTable(
+void calculator::view::DepositCalculator::PushRecordsInTable(
     const model::DepositCalculator::return_type& records) {
   ui->result_table->setRowCount(0);
   for (const auto& record : records) {
@@ -98,23 +99,24 @@ void s21::view::DepositCalculator::PushRecordsInTable(
   ui->result_table->setItem(ui->result_table->rowCount() - 1, 0, nullptr);
 }
 
-void s21::view::DepositCalculator::on_add_refill_button_clicked() {
+void calculator::view::DepositCalculator::on_add_refill_button_clicked() {
   AddPayment(ui->refills_widgets, ui->clear_refills_button);
 }
 
-void s21::view::DepositCalculator::on_clear_refills_button_clicked() {
+void calculator::view::DepositCalculator::on_clear_refills_button_clicked() {
   ClearPayments(ui->refills_widgets, ui->clear_refills_button);
 }
 
-void s21::view::DepositCalculator::on_add_withdrawal_button_clicked() {
+void calculator::view::DepositCalculator::on_add_withdrawal_button_clicked() {
   AddPayment(ui->withdrawals_widgets, ui->clear_withdrawals_button);
 }
 
-void s21::view::DepositCalculator::on_clear_withdrawals_button_clicked() {
+void calculator::view::DepositCalculator::
+    on_clear_withdrawals_button_clicked() {
   ClearPayments(ui->withdrawals_widgets, ui->clear_withdrawals_button);
 }
 
-void s21::view::DepositCalculator::on_calculate_button_clicked() {
+void calculator::view::DepositCalculator::on_calculate_button_clicked() {
   model::DepositCalculator::Parameters params;
   params.sum = ui->sum_input->value();
   params.term = ui->term_input->value();
@@ -139,9 +141,9 @@ void s21::view::DepositCalculator::on_calculate_button_clicked() {
   PushRecordsInTable(result);
 }
 
-s21::model::DepositCalculator::payment_list
-s21::view::DepositCalculator::GetPaymentList(bool is_refill) {
-  s21::model::DepositCalculator::payment_list result;
+calculator::model::DepositCalculator::payment_list
+calculator::view::DepositCalculator::GetPaymentList(bool is_refill) {
+  calculator::model::DepositCalculator::payment_list result;
   QVBoxLayout* current_layout =
       (is_refill ? ui->refills_widgets : ui->withdrawals_widgets);
   for (int i = 0; i < current_layout->count(); ++i) {
@@ -158,7 +160,7 @@ s21::view::DepositCalculator::GetPaymentList(bool is_refill) {
   return result;
 }
 
-s21::model::TermType s21::view::DepositCalculator::GetTermType() {
+calculator::model::TermType calculator::view::DepositCalculator::GetTermType() {
   if (ui->term_type_input->currentIndex() == 0)
     return model::TermType::kDays;
   else if (ui->term_type_input->currentIndex() == 1)
@@ -167,15 +169,15 @@ s21::model::TermType s21::view::DepositCalculator::GetTermType() {
     return model::TermType::kYears;
 }
 
-s21::model::RateType s21::view::DepositCalculator::GetRateType() {
+calculator::model::RateType calculator::view::DepositCalculator::GetRateType() {
   if (ui->rate_type_input->currentIndex() == 0)
     return model::RateType::kPerMonth;
   else
     return model::RateType::kPerAnnum;
 }
 
-s21::model::DepositCalculator::PeriodicityType
-s21::view::DepositCalculator::GetPaymentPeriodicity() {
+calculator::model::DepositCalculator::PeriodicityType
+calculator::view::DepositCalculator::GetPaymentPeriodicity() {
   switch (ui->payment_periodicity_input->currentIndex()) {
     case 0:
       return model::DepositCalculator::PeriodicityType::kDaily;
@@ -201,7 +203,8 @@ s21::view::DepositCalculator::GetPaymentPeriodicity() {
   }
 }
 
-void s21::view::DepositCalculator::on_show_refills_list_clicked(bool checked) {
+void calculator::view::DepositCalculator::on_show_refills_list_clicked(
+    bool checked) {
   if (checked) {
     ui->refills_list->show();
     ui->show_refills_list->setText("Show");
@@ -212,7 +215,7 @@ void s21::view::DepositCalculator::on_show_refills_list_clicked(bool checked) {
   }
 }
 
-void s21::view::DepositCalculator::on_show_withdrawals_list_clicked(
+void calculator::view::DepositCalculator::on_show_withdrawals_list_clicked(
     bool checked) {
   if (checked) {
     ui->withdrawals_list->show();

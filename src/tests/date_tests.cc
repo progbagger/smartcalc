@@ -1,6 +1,6 @@
 #include "date_tests.h"
 
-inline const std::string DateMsg(const s21::model::Date& date) {
+inline const std::string DateMsg(const calculator::model::Date& date) {
   return std::string(kNoteMsg) + " Failure at \"" + date.ToString() + "\"";
 }
 
@@ -14,8 +14,8 @@ TEST(Date, Incorrect) {
     EXPECT_FALSE(test_case.IsCorrect()) << DateMsg(test_case);
 }
 
-inline const std::string DatePairMsg(const s21::model::Date& date1,
-                                     const s21::model::Date& date2) {
+inline const std::string DatePairMsg(const calculator::model::Date& date1,
+                                     const calculator::model::Date& date2) {
   return std::string(kNoteMsg) + " Failure at \"" + date1.ToString() +
          "\", \"" + date2.ToString() + "\"";
 }
@@ -56,19 +56,19 @@ TEST(Date, GreaterOrEqual) {
         << DatePairMsg(test_case.first, test_case.second);
 }
 
-inline void TestIncreaseFunction(const s21::model::Date& date,
-                                 const s21::model::Date& date_compare,
-                                 void (s21::model::Date::*function)(int),
+inline void TestIncreaseFunction(const calculator::model::Date& date,
+                                 const calculator::model::Date& date_compare,
+                                 void (calculator::model::Date::*function)(int),
                                  int value, bool is_correct) {
-  s21::model::Date date1(date);
+  calculator::model::Date date1(date);
   (date1.*function)(value);
   EXPECT_EQ(date1.IsCorrect(), is_correct) << DateMsg(date1);
   EXPECT_EQ(date1, date_compare) << DatePairMsg(date1, date_compare);
 }
 
-inline void TestIncreaseDay(const s21::model::Date& date,
-                            const s21::model::Date& date_compare, int days) {
-  TestIncreaseFunction(date, date_compare, &s21::model::Date::IncreaseDay, days,
+inline void TestIncreaseDay(const calculator::model::Date& date,
+                            const calculator::model::Date& date_compare, int days) {
+  TestIncreaseFunction(date, date_compare, &calculator::model::Date::IncreaseDay, days,
                        true);
 }
 
@@ -80,9 +80,9 @@ TEST(Date, IncreaseDay) {
   TestIncreaseDay({31, 12, 2022}, {31, 12, 2023}, 365);
 }
 
-inline void TestIncreaseWeek(const s21::model::Date& date,
-                             const s21::model::Date& date_compare, int weeks) {
-  TestIncreaseFunction(date, date_compare, &s21::model::Date::IncreaseWeek,
+inline void TestIncreaseWeek(const calculator::model::Date& date,
+                             const calculator::model::Date& date_compare, int weeks) {
+  TestIncreaseFunction(date, date_compare, &calculator::model::Date::IncreaseWeek,
                        weeks, true);
 }
 
@@ -94,10 +94,10 @@ TEST(Date, IncreaseWeek) {
   TestIncreaseWeek({1, 1, 2077}, {26, 6, 2364}, 15000);
 }
 
-inline void TestIncreaseMonth(const s21::model::Date& date,
-                              const s21::model::Date& date_compare, int months,
+inline void TestIncreaseMonth(const calculator::model::Date& date,
+                              const calculator::model::Date& date_compare, int months,
                               bool is_correct) {
-  TestIncreaseFunction(date, date_compare, &s21::model::Date::IncreaseMonth,
+  TestIncreaseFunction(date, date_compare, &calculator::model::Date::IncreaseMonth,
                        months, is_correct);
 }
 
@@ -109,10 +109,10 @@ TEST(Date, IncreaseMonth) {
   TestIncreaseMonth({29, 2, 2024}, {29, 2, 2028}, 48);
 }
 
-inline void TestIncreaseQuarter(const s21::model::Date& date,
-                                const s21::model::Date& date_compare,
+inline void TestIncreaseQuarter(const calculator::model::Date& date,
+                                const calculator::model::Date& date_compare,
                                 int quarters, bool is_correct) {
-  TestIncreaseFunction(date, date_compare, &s21::model::Date::IncreaseQuarter,
+  TestIncreaseFunction(date, date_compare, &calculator::model::Date::IncreaseQuarter,
                        quarters, is_correct);
 }
 
@@ -122,10 +122,10 @@ TEST(Date, IncreaseQuarter) {
   TestIncreaseQuarter({29, 2, 2024}, {29, 5, 2024}, 1);
 }
 
-inline void TestIncreaseHalf(const s21::model::Date& date,
-                             const s21::model::Date& date_compare, int halfs,
+inline void TestIncreaseHalf(const calculator::model::Date& date,
+                             const calculator::model::Date& date_compare, int halfs,
                              bool is_correct) {
-  TestIncreaseFunction(date, date_compare, &s21::model::Date::IncreaseHalf,
+  TestIncreaseFunction(date, date_compare, &calculator::model::Date::IncreaseHalf,
                        halfs, is_correct);
 }
 
@@ -134,10 +134,10 @@ TEST(Date, IncreaseHalf) {
   TestIncreaseHalf({31, 12, 2022}, {31, 6, 2023}, 1, false);
 }
 
-inline void TestIncreaseYear(const s21::model::Date& date,
-                             const s21::model::Date& date_compare, int years,
+inline void TestIncreaseYear(const calculator::model::Date& date,
+                             const calculator::model::Date& date_compare, int years,
                              bool is_correct) {
-  TestIncreaseFunction(date, date_compare, &s21::model::Date::IncreaseYear,
+  TestIncreaseFunction(date, date_compare, &calculator::model::Date::IncreaseYear,
                        years, is_correct);
 }
 
@@ -147,25 +147,25 @@ TEST(Date, IncreaseYear) {
 }
 
 TEST(Date, Getters) {
-  s21::model::Date date(31, 12, 2022);
+  calculator::model::Date date(31, 12, 2022);
   EXPECT_EQ(date.GetDay(), 31);
   EXPECT_EQ(date.GetMonth(), 12);
   EXPECT_EQ(date.GetYear(), 2022);
 }
 
 TEST(Date, InitializerListIncorrect) {
-  s21::model::Date date1{1, 2, 3, 4, 5};
+  calculator::model::Date date1{1, 2, 3, 4, 5};
   EXPECT_EQ(date1.IsCorrect(), true);
 
-  s21::model::Date date2{1, 12};
+  calculator::model::Date date2{1, 12};
   EXPECT_NE(date2.IsCorrect(), true);
 }
 
 TEST(Date, OperatorString) {
-  s21::model::Date date1(1, 1, 2022);
+  calculator::model::Date date1(1, 1, 2022);
   EXPECT_EQ(date1.ToString(), "01.01.2022");
 
-  s21::model::Date date2(31, 12, 1984);
+  calculator::model::Date date2(31, 12, 1984);
   EXPECT_EQ(date2.ToString(), "31.12.1984");
 }
 
@@ -190,7 +190,7 @@ TEST(Date, DaysTo) {
 }
 
 TEST(Date, DefaultConstructor) {
-  s21::model::Date date;
+  calculator::model::Date date;
   ASSERT_TRUE(date.IsCorrect());
   EXPECT_EQ(date.GetDay(), 1);
   EXPECT_EQ(date.GetMonth(), 1);
@@ -198,7 +198,7 @@ TEST(Date, DefaultConstructor) {
 }
 
 TEST(Date, GetCorrectDate) {
-  s21::model::Date date(31, 2, 2022);
+  calculator::model::Date date(31, 2, 2022);
   ASSERT_FALSE(date.IsCorrect());
-  ASSERT_EQ(date.GetCorrectDate(), s21::model::Date(28, 2, 2022));
+  ASSERT_EQ(date.GetCorrectDate(), calculator::model::Date(28, 2, 2022));
 }

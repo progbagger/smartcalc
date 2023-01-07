@@ -12,7 +12,7 @@ namespace Ui {
 class DepositCalculator;
 }
 
-namespace s21 {
+namespace calculator {
 
 namespace view {
 
@@ -60,6 +60,6 @@ class DepositCalculator : public QMainWindow {
 
 }  // namespace view
 
-}  // namespace s21
+}  // namespace calculator
 
 #endif  // VIEW_DEPOSIT_CALCULATOR_VIEW_H_
